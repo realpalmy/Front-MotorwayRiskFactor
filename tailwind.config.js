@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
     fontFamily : {
-      'display': ['"Helvetica", "Arial", "sans-serif"'],
+      Anuphan: ["Anuphan", "sans-serif"],
     },
     extend: {},
   },
