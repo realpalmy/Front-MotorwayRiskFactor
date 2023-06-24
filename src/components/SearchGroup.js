@@ -1,9 +1,11 @@
-import { Fragment, useState, useEffect } from "react";
-import { riskFactors } from "../data/riskFactors";
+import { Fragment, useState, useEffect, useContext } from "react";
 import Table from "../components/Table";
+import Context from "../Context";
 
 export default function SearchGroup() {
-  const [searchData, setSearchData] = useState(riskFactors);
+  const { data, updateData } = useContext(Context);
+
+  const [searchData, setSearchData] = useState(data);
 
   const searchForm = (event) => {
     event.preventDefault();
@@ -15,7 +17,7 @@ export default function SearchGroup() {
     setSearchData(() => {
       let serchFactor = [];
       if (year !== "" || quarter !== "") {
-        serchFactor = riskFactors.filter((risk) => {
+        serchFactor = data.filter((risk) => {
           if (year !== "" && quarter !== "") {
             return risk.year == year && risk.quarter == quarter;
           } else if (year !== "") {
@@ -25,7 +27,7 @@ export default function SearchGroup() {
           }
         });
       } else {
-        serchFactor = riskFactors;
+        serchFactor = data;
       }
       return serchFactor;
     });

@@ -1,9 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
-import { riskFactors } from "../data/riskFactors";
+import { Fragment, useEffect, useState, useContext } from "react";
 import Table from "../components/Table";
+import Context from "../Context";
 
 export default function Factor2022() {
-  const [data, setData] = useState(riskFactors);
+  const { data, updateData } = useContext(Context);
+
+  //const [data, setData] = useState(riskFactors);
   //const [saveData, setSaveData] = useState(data);
 
   const [chance1, setChance1] = useState(1);
@@ -11,12 +13,13 @@ export default function Factor2022() {
   const [chance2, setChance2] = useState(1);
   const [effect2, setEffect2] = useState(1);
 
+  const [year, setYear] = useState("");
+  const [quarter, setQuarter] = useState("");
+
   const updateRiskData = (event) => {
     event.preventDefault();
-    const year = document.getElementById("selectYear").value;
-    const quarter = document.getElementById("selectQuarter").value;
 
-    setData((prevData) => {
+    updateData((prevData) => {
       const newData = prevData.map((item) => {
         if (item.year == year && item.quarter == quarter) {
           const newRiskData = item.riskData.map((riskItem) => {
@@ -86,6 +89,9 @@ export default function Factor2022() {
             <select
               id="selectYear"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={() =>
+                setYear(document.getElementById("selectYear").value)
+              }
             >
               <option value="">เลือกทั้งหมด</option>
               <option value="2022">2022</option>
@@ -102,6 +108,9 @@ export default function Factor2022() {
             <select
               id="selectQuarter"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={() =>
+                setQuarter(document.getElementById("selectQuarter").value)
+              }
             >
               <option value="">เลือกทั้งหมด</option>
               <option value="1">1</option>
@@ -110,15 +119,17 @@ export default function Factor2022() {
               <option value="4">4</option>
             </select>
           </div>
-          <div className="grid content-end">
-            <button
-              id="savaButton"
-              type="submit"
-              className="py-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-            >
-              Save
-            </button>
-          </div>
+          {year === "2023" && (
+            <div className="grid content-end">
+              <button
+                id="savaButton"
+                type="submit"
+                className="py-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+              >
+                Save
+              </button>
+            </div>
+          )}
         </div>
       </form>
 
