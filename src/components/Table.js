@@ -30,11 +30,27 @@ export default function Table({ data }) {
   const oneToFive = [1, 2, 3, 4, 5];
   const fiveToOne = [5, 4, 3, 2, 1];
 
+  const stair = "border-t-black border-r-black";
+  const left = "border-l-black";
+  const bottom = "border-b-black";
+  const color = (l, i) => {
+    let risk = l*i;
+    if(risk < 4) {
+      return 'bg-lime-400'
+    } else if(risk < 10) {
+      return 'bg-[#FFFF00]/75'
+    } else if(risk < 17) {
+      return 'bg-amber-500'
+    } else {
+      return 'bg-red-500'
+    }
+  }
+
   return (
     <Fragment>
-      <div className="flex flex-col w-96">
-        <div className="sm:-mx-6 lg:-mx-8">
-          <div className="inline-block py-2 sm:px-6 lg:px-8">
+      <div className="flex flex-col w-[25rem]">
+        <div className="">
+          <div className="">
             <div className="overflow-hidden">
               <table className="w-full table-fixed border text-center text-sm font-light dark:border-neutral-500">
                 <caption>
@@ -45,14 +61,16 @@ export default function Table({ data }) {
                     <td
                       rowSpan="2"
                       colSpan="2"
-                      className="border border-slate-300 py-6"
+                      className="border border-slate-300 bg-orange-300 h-28"
                     >
-                      ปัจจัยเสี่ยงที่เหลืออยู่ (Residual Risks)
+                      <span>ปัจจัยเสี่ยงที่เหลืออยู่</span>
+                      <p></p>
+                      <span>(Residual Risks)</span>
                     </td>
                     <th
                       colSpan="5"
                       scope="colgroup"
-                      className="border border-slate-300"
+                      className="border border-slate-300  bg-neutral-400 text-white"
                     >
                       โอกาส (L)
                     </th>
@@ -76,26 +94,40 @@ export default function Table({ data }) {
                         <th
                           rowSpan="5"
                           scope="rowgroup"
-                          className="rotate-180 border border-slate-300"
-                          style={{ writingMode: "vertical-rl" }}
+                          className="rotate-180 border border-slate-300 bg-neutral-400 text-white"
+                          style={{ writingMode: "vertical-rl"}}
                         >
                           ผลกระทบ (I)
                         </th>
                       )}
                       <th
                         scope="row"
-                        className="border border-slate-300 bg-gray-50 py-4"
+                        className="border border-slate-300 bg-gray-50 h-12"
                       >
                         {num}
                       </th>
-                      {dataArray[num - 1].map((data, index) => (
-                        <td
-                          key={index + "" + num}
-                          className="border border-slate-300"
-                        >
-                          {data}
-                        </td>
-                      ))}
+
+                      {dataArray[num - 1].map((data, index) =>
+                        (index + 1 === 1 && num === 5) ||
+                        (index + 1 === 2 && num === 4) ||
+                        (index + 1 === 4 && num === 2) ||
+                        (index + 1 === 5 && num === 1) ? (
+                          <td
+                            key={index + "" + num}
+                            className={`border-2 ${stair} $ ${color(index+1, num)}`}
+                          >
+                            {data}
+                          </td>
+                        ) : (index + 1 === 3 && num === 3) ? (
+                          <td key={index + "" + num} className={`border-2 ${left} ${bottom} ${color(index+1, num)}`}>
+                            {data}
+                          </td>
+                        ) : (
+                          <td key={index + "" + num} className={`border ${color(index+1, num)}`}>
+                            {data}
+                          </td>
+                        )
+                      )}
                     </tr>
                   ))}
                 </tbody>
