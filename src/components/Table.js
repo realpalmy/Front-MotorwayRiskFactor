@@ -54,7 +54,7 @@ export default function Table({ data }) {
             <div className="overflow-hidden">
               <table className="w-full table-fixed border text-center text-sm font-light dark:border-neutral-500">
                 <caption>
-                  ระดับความเสี่ยง ณ Quarter {data.quarter} ปี {data.year}
+                  ระดับความเสี่ยง ณ ปี {data.year} ไตรมาส {data.quarter}
                 </caption>
                 <thead>
                   <tr>
