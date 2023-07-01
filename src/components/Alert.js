@@ -14,7 +14,7 @@ const Alert = ({ clickedSave, setClickedSave }) => {
         >
           <div className="sm:flex sm:items-start lg:items-center bg-secondary-100 text-secondary-800">
             <div className="flex items-end">
-              <p className="mr-2 text-base font-bold text-[#65a30d] ">
+              <p className="mr-2 text-base text-[#65a30d] ">
                 บันทึกสำเร็จ
               </p>
             </div>

@@ -87,7 +87,7 @@ export default function SearchGroup() {
 
             <div className="flex-col border my-4 p-5 rounded">
               <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
-              <div className="flex flex-wrap justify-around">
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                 {searchData?.map((quarter) => (
                   <Table
                     key={quarter.year + "" + quarter.quarter}

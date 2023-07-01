@@ -21,7 +21,14 @@ export default function Table({ data }) {
         // const newRiskName = [...dataArray];
         const newRiskName = [...emptyArr];
         //const newRiskName = emptyArr;
-        newRiskName[risk.i - 1][risk.l - 1] = risk.name;
+        if (!newRiskName[risk.i - 1][risk.l - 1].includes(risk.name)) {
+          if (newRiskName[risk.i - 1][risk.l - 1] != "") {
+            newRiskName[risk.i - 1][risk.l - 1] += ", " + risk.name;
+          } else {
+            newRiskName[risk.i - 1][risk.l - 1] += risk.name;
+          }
+        }
+
         setDataArray(newRiskName);
       }
     });
@@ -34,17 +41,17 @@ export default function Table({ data }) {
   const left = "border-l-black";
   const bottom = "border-b-black";
   const color = (l, i) => {
-    let risk = l*i;
-    if(risk < 4) {
-      return 'bg-lime-400'
-    } else if(risk < 10) {
-      return 'bg-[#FFFF00]/75'
-    } else if(risk < 17) {
-      return 'bg-amber-500'
+    let risk = l * i;
+    if (risk < 4) {
+      return "bg-lime-400";
+    } else if (risk < 10) {
+      return "bg-[#FFFF00]/75";
+    } else if (risk < 17) {
+      return "bg-amber-500";
     } else {
-      return 'bg-red-500'
+      return "bg-red-500";
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -63,7 +70,9 @@ export default function Table({ data }) {
                       colSpan="2"
                       className="border border-slate-300 bg-orange-300 h-28"
                     >
-                      <span>ปัจจัยเสี่ยงที่เหลืออยู่</span>
+                      <span>ปัจจัยเสี่ยงที่</span>
+                      <p></p>
+                      <span>เหลืออยู่</span>
                       <p></p>
                       <span>(Residual Risks)</span>
                     </td>
@@ -95,7 +104,7 @@ export default function Table({ data }) {
                           rowSpan="5"
                           scope="rowgroup"
                           className="rotate-180 border border-slate-300 bg-neutral-400 text-white"
-                          style={{ writingMode: "vertical-rl"}}
+                          style={{ writingMode: "vertical-rl" }}
                         >
                           ผลกระทบ (I)
                         </th>
@@ -114,16 +123,28 @@ export default function Table({ data }) {
                         (index + 1 === 5 && num === 1) ? (
                           <td
                             key={index + "" + num}
-                            className={`border-2 ${stair} $ ${color(index+1, num)}`}
+                            className={`border-2 ${stair} $ ${color(
+                              index + 1,
+                              num
+                            )}`}
                           >
                             {data}
                           </td>
-                        ) : (index + 1 === 3 && num === 3) ? (
-                          <td key={index + "" + num} className={`border-2 ${left} ${bottom} ${color(index+1, num)}`}>
+                        ) : index + 1 === 3 && num === 3 ? (
+                          <td
+                            key={index + "" + num}
+                            className={`border-2 ${left} ${bottom} ${color(
+                              index + 1,
+                              num
+                            )}`}
+                          >
                             {data}
                           </td>
                         ) : (
-                          <td key={index + "" + num} className={`border ${color(index+1, num)}`}>
+                          <td
+                            key={index + "" + num}
+                            className={`border ${color(index + 1, num)}`}
+                          >
                             {data}
                           </td>
                         )
