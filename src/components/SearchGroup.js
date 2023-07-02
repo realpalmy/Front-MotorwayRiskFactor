@@ -35,15 +35,16 @@ export default function SearchGroup() {
 
   return (
     <Fragment>
-      <div className="container mx-auto my-6">
+      <div className="container mx-auto my-6 px-2">
         <div className="p-2 sm:p-0">
+          <h1 className="text-xl font-semibold text-center sm:text-start sm:pb-1">ค้นหาข้อมูลปัจจัยความเสี่ยง</h1>
           <div className="flex flex-col justify-start">
             <form onSubmit={searchForm} className="flex justify-start mb-6">
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4 w-full">
                 <div className="col-span-2 content-end">
                   <label
                     htmlFor="year"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     ปี
                   </label>
@@ -59,7 +60,7 @@ export default function SearchGroup() {
                 <div className="col-span-2">
                   <label
                     htmlFor="quarter"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900"
                   >
                     ไตรมาส
                   </label>
@@ -86,12 +87,12 @@ export default function SearchGroup() {
             </form>
 
             <div className="flex-col border my-4 p-5 rounded">
-              <div className="flex flex-col sm:flex-row sm:justify-between">
-                <div class="flex w-full my-3">
+              <div className="flex flex-col sm:flex-row mb-3 sm:justify-between">
+                <div class="flex w-full">
                   <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
                 </div>
 
-                <div class="flex flex-wrap gap-1 sm:gap-3 justify-start sm:justify-end mb-3 sm:my-3 w-full">
+                <div class="flex flex-wrap gap-1 sm:gap-3 justify-start sm:justify-end mb-3 w-full">
                   <div class="flex items-center">
                     <span class="block w-4 h-4 bg-lime-400"></span>
                     <span class="ml-1 text-xs font-medium">เสี่ยงน้อย</span>
@@ -110,7 +111,9 @@ export default function SearchGroup() {
                   </div>
                   <div class="flex items-center">
                     <span class="block w-6 h-1 bg-black"></span>
-                    <span class="ml-1 text-xs font-medium">Risk Boundary = 8</span>
+                    <span class="ml-1 text-xs font-medium">
+                      Risk Boundary = 8
+                    </span>
                   </div>
                 </div>
               </div>

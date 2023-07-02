@@ -27,8 +27,9 @@ function App() {
       axios
       .post(path, { jsonData })
       .then((response) => {
-        console.log("post success ", response)
-        console.log("post success ", jsonData)
+        //onsole.log("post success ", response)
+        //console.log("post success ", jsonData)
+        console.log("post success")
       })
       .catch((error) => {
         console.log(error);  
@@ -41,7 +42,7 @@ function App() {
   const fetchData = async () => {
     try {
       const riskFactorsData = await axios.get(path);
-      console.log(riskFactorsData)
+      //console.log(riskFactorsData)
       setData(riskFactorsData.data);
       setIsLoading(false);
     } catch (error) {

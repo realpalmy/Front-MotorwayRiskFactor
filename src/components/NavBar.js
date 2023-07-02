@@ -17,7 +17,7 @@ export default function NavBar() {
           </Link>
           <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:pl-5">
             <Link
-              to="/search"
+              to="/"
               className="font-medium text-gray-400 hover:text-gray-500"
             >
               ค้นหา
