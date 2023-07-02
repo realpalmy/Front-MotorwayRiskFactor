@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Front-MotorwayRiskFactor/static/css/main.a327ff5d.css",
-    "main.js": "/Front-MotorwayRiskFactor/static/js/main.2b4fbb9e.js",
+    "main.css": "/Front-MotorwayRiskFactor/static/css/main.4f19b507.css",
+    "main.js": "/Front-MotorwayRiskFactor/static/js/main.63bc382a.js",
     "static/js/787.e5e3391f.chunk.js": "/Front-MotorwayRiskFactor/static/js/787.e5e3391f.chunk.js",
     "index.html": "/Front-MotorwayRiskFactor/index.html",
-    "main.a327ff5d.css.map": "/Front-MotorwayRiskFactor/static/css/main.a327ff5d.css.map",
-    "main.2b4fbb9e.js.map": "/Front-MotorwayRiskFactor/static/js/main.2b4fbb9e.js.map",
+    "main.4f19b507.css.map": "/Front-MotorwayRiskFactor/static/css/main.4f19b507.css.map",
+    "main.63bc382a.js.map": "/Front-MotorwayRiskFactor/static/js/main.63bc382a.js.map",
     "787.e5e3391f.chunk.js.map": "/Front-MotorwayRiskFactor/static/js/787.e5e3391f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a327ff5d.css",
-    "static/js/main.2b4fbb9e.js"
+    "static/css/main.4f19b507.css",
+    "static/js/main.63bc382a.js"
   ]
 }
