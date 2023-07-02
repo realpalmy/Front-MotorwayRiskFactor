@@ -1,13 +1,10 @@
-import { Fragment, useEffect, useState, useContext } from "react";
+import { Fragment, useState, useContext } from "react";
 import Table from "../components/Table";
 import Context from "../Context";
 import Alert from "./Alert";
 
 export default function Factor2022() {
   const { data, updateData } = useContext(Context);
-
-  //const [data, setData] = useState(riskFactors);
-  //const [saveData, setSaveData] = useState(data);
 
   const [chance1, setChance1] = useState(0);
   const [effect1, setEffect1] = useState(0);
@@ -22,12 +19,10 @@ export default function Factor2022() {
   const updateRiskData = (event) => {
     event.preventDefault();
 
-    console.log("how??");
-
     updateData((prevData) => {
-      const newData = prevData.map((item) => {
+      const newData = prevData?.map((item) => {
         if (item.year == year && item.quarter == quarter) {
-          const newRiskData = item.riskData.map((riskItem) => {
+          const newRiskData = item.riskData?.map((riskItem) => {
             if (riskItem.name === "SIC1") {
               return {
                 ...riskItem,
@@ -53,32 +48,14 @@ export default function Factor2022() {
     });
 
     setClickedSave(true);
-
-    /*setSaveData(() => {
-      let serchFactor = [];
-      if (year !== "" || quarter !== "") {
-        serchFactor = data.filter((risk) => {
-          if (year !== "" && quarter !== "") {
-            return risk.year == year && risk.quarter == quarter;
-          } else if (year !== "") {
-            return risk.year == year;
-          } else if (quarter !== "") {
-            return risk.quarter == quarter;
-          }
-        });
-      } else {
-        serchFactor = data;
-      }
-      return serchFactor;
-    });*/
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const button = document.getElementById("savaButton");
     if (button) {
       button.click();
     }
-  }, []);
+  }, []);*/
 
   const table_css = "border border-black p-2"; //min-w-[8rem]
 
@@ -142,7 +119,7 @@ export default function Factor2022() {
                     ความเสี่ยงเหลืออยู่ (Residual Risk)
                   </div>
 
-                  <div className={"col-span-9 " + "border border-black px-2"}>
+                  <div className={"col-span-9 border border-black px-2"}>
                     1. ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายในที่ควบคุมได้
                     (Strategic Internal Controllable Risk: SIC)
                   </div>
@@ -193,7 +170,7 @@ export default function Factor2022() {
                     {chance1 * effect1 > 8 ? "ใช่" : "ไม่"}
                   </div>
 
-                  <div className={"col-span-9 " + "border border-black px-2"}>
+                  <div className={"col-span-9 border border-black px-2"}>
                     2. ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
                     (Strategic External Uncontrollable Risk: SEU)
                   </div>

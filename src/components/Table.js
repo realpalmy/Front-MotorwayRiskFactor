@@ -3,26 +3,23 @@ import { Fragment, useEffect, useState } from "react";
 export default function Table({ data }) {
   //console.log(data)
 
-  const emptyArr = new Array(5).fill("").map(() => new Array(5).fill(""));
+  const emptyArr = new Array(5).fill("")?.map(() => new Array(5).fill(""));
 
   const [dataArray, setDataArray] = useState(emptyArr);
 
   useEffect(() => {
     setDataArray(emptyArr);
-    console.log("count");
+    //console.log("count");
 
     data.riskData?.forEach((risk) => {
       if (risk.l !== 0 || risk.i !== 0) {
-        console.log(risk.name, risk);
         setDataArray(emptyArr);
-
-        console.log(dataArray);
 
         // const newRiskName = [...dataArray];
         const newRiskName = [...emptyArr];
         //const newRiskName = emptyArr;
         if (!newRiskName[risk.i - 1][risk.l - 1].includes(risk.name)) {
-          if (newRiskName[risk.i - 1][risk.l - 1] != "") {
+          if (newRiskName[risk.i - 1][risk.l - 1] !== "") {
             newRiskName[risk.i - 1][risk.l - 1] += ", " + risk.name;
           } else {
             newRiskName[risk.i - 1][risk.l - 1] += risk.name;
@@ -85,7 +82,7 @@ export default function Table({ data }) {
                     </th>
                   </tr>
                   <tr>
-                    {oneToFive.map((num) => (
+                    {oneToFive?.map((num) => (
                       <th
                         key={num}
                         scope="col"
@@ -97,7 +94,7 @@ export default function Table({ data }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {fiveToOne.map((num) => (
+                  {fiveToOne?.map((num) => (
                     <tr key={num}>
                       {num === 5 && (
                         <th
@@ -116,7 +113,7 @@ export default function Table({ data }) {
                         {num}
                       </th>
 
-                      {dataArray[num - 1].map((data, index) =>
+                      {dataArray[num - 1]?.map((data, index) =>
                         (index + 1 === 1 && num === 5) ||
                         (index + 1 === 2 && num === 4) ||
                         (index + 1 === 4 && num === 2) ||

@@ -1,9 +1,9 @@
-import { Fragment, useState, useEffect, useContext } from "react";
+import { Fragment, useState, useContext } from "react";
 import Table from "../components/Table";
 import Context from "../Context";
 
 export default function SearchGroup() {
-  const { data, updateData } = useContext(Context);
+  const { data } = useContext(Context);
 
   const [searchData, setSearchData] = useState(data);
 
@@ -12,12 +12,12 @@ export default function SearchGroup() {
     const year = document.getElementById("year").value;
     const quarter = document.getElementById("quarter").value;
 
-    console.log("search count");
+    console.log(data);
 
     setSearchData(() => {
-      let serchFactor = [];
+      let searchFactor = [];
       if (year !== "" || quarter !== "") {
-        serchFactor = data.filter((risk) => {
+        searchFactor = data?.filter((risk) => {
           if (year !== "" && quarter !== "") {
             return risk.year == year && risk.quarter == quarter;
           } else if (year !== "") {
@@ -27,9 +27,9 @@ export default function SearchGroup() {
           }
         });
       } else {
-        serchFactor = data;
+        searchFactor = data;
       }
-      return serchFactor;
+      return searchFactor;
     });
   };
 
@@ -86,7 +86,35 @@ export default function SearchGroup() {
             </form>
 
             <div className="flex-col border my-4 p-5 rounded">
-              <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
+              <div className="flex flex-col sm:flex-row sm:justify-between">
+                <div class="flex w-full my-3">
+                  <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
+                </div>
+
+                <div class="flex flex-wrap gap-1 sm:gap-3 justify-start sm:justify-end mb-3 sm:my-3 w-full">
+                  <div class="flex items-center">
+                    <span class="block w-4 h-4 bg-lime-400"></span>
+                    <span class="ml-1 text-xs font-medium">เสี่ยงน้อย</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="block w-4 h-4 bg-[#FFFF00]/75"></span>
+                    <span class="ml-1 text-xs font-medium">เสี่ยงปานกลาง</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="block w-4 h-4 bg-amber-500"></span>
+                    <span class="ml-1 text-xs font-medium">เสี่ยงสูง</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="block w-4 h-4 bg-red-500"></span>
+                    <span class="ml-1 text-xs font-medium">เสี่ยงสูงมาก</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="block w-6 h-1 bg-black"></span>
+                    <span class="ml-1 text-xs font-medium">Risk Boundary = 8</span>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                 {searchData?.map((quarter) => (
                   <Table
