@@ -56,15 +56,21 @@ export default function Table({ data }) {
           <div className="">
             <div className="overflow-hidden">
               <table className="w-full table-fixed border text-center text-sm font-light dark:border-neutral-500">
-                {data.quarter === 0 ? (
-                  <caption>
-                    ระดับความเสี่ยง ณ ต้นปีงบประมาณ ปี {data.year}
-                  </caption>
+                {data.list ? (
+                  <caption>ความเสี่ยงระดับองค์กร ปี {data.year}</caption>
                 ) : (
-                  <caption>
-                    ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year}
-                  </caption>
+                  data?.quarter === 0 ? (
+                    <caption>
+                      ระดับความเสี่ยง ณ ต้นปีงบประมาณ ปี {data.year}
+                    </caption>
+                  ) : (
+                    <caption>
+                      ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year} ({" "}
+                      {data.monthStart} - {data.monthEnd} )
+                    </caption>
+                  )
                 )}
+                
 
                 <thead>
                   <tr>
@@ -108,7 +114,10 @@ export default function Table({ data }) {
                           scope="rowgroup"
                           className="border border-slate-300 bg-neutral-400 text-white w-100"
                           //style={{ writingMode: "vertical-rl" }}
-                          style={{ writingMode: "tb", transform: "rotate(180deg)" }}
+                          style={{
+                            writingMode: "tb",
+                            transform: "rotate(180deg)",
+                          }}
                         >
                           ผลกระทบ (I)
                         </th>

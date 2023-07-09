@@ -4,9 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 export default function NavBar() {
   return (
     <Fragment>
-      <header className="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 bg-gray-800">
+      <header className="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm py-4 bg-gray-800">
         <nav
-          className="max-w-[100rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
+          className="max-w-[100rem] w-full mx-auto px-4 md:flex sm:items-center md:justify-between"
           aria-label="Global"
         >
           <Link to="/" className="flex-none text-lg font-semibold text-white">
@@ -17,7 +17,7 @@ export default function NavBar() {
             <NavLink
               to="/"
               style={({ isActive }) => ({
-                color: isActive ? "#38bdf8" : "#9ca3af",
+                color: isActive ? "#0ea5e9" : "#9ca3af",
               })}
               className="font-lg text-gray-400 hover:text-gray-500"
             >
@@ -26,7 +26,7 @@ export default function NavBar() {
             <NavLink
               to="/update"
               style={({ isActive }) => ({
-                color: isActive ? "#38bdf8" : "#9ca3af",
+                color: isActive ? "#0ea5e9" : "#9ca3af",
               })}
               className="font-lg text-gray-400 hover:text-gray-500"
             >

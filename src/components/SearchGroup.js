@@ -1,6 +1,8 @@
 import { Fragment, useState, useContext } from "react";
 import Table from "../components/Table";
 import Context from "../Context";
+import TableIndicator from "../components/TableIndicator"
+
 
 export default function SearchGroup() {
   const { data } = useContext(Context);
@@ -38,7 +40,7 @@ export default function SearchGroup() {
       <div className="container mx-auto my-6 px-2">
         <div className="p-2 sm:p-0">
           <h1 className="text-xl font-semibold text-center sm:text-start sm:pb-1">
-            ค้นหาข้อมูลปัจจัยความเสี่ยง
+            ค้นหาปัจจัยเสี่ยงระดับแผนปฏิบัติการ
           </h1>
           <div className="flex flex-col justify-start">
             <form onSubmit={searchForm} className="flex justify-start mb-6">
@@ -95,30 +97,7 @@ export default function SearchGroup() {
                   <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
                 </div>
 
-                <div class="flex flex-wrap gap-1 sm:gap-3 justify-start sm:justify-end mb-3 w-full">
-                  <div class="flex items-center">
-                    <span class="block w-4 h-4 bg-lime-400"></span>
-                    <span class="ml-1 text-xs font-medium">เสี่ยงน้อย</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="block w-4 h-4 bg-[#FFFF00]/75"></span>
-                    <span class="ml-1 text-xs font-medium">เสี่ยงปานกลาง</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="block w-4 h-4 bg-amber-500"></span>
-                    <span class="ml-1 text-xs font-medium">เสี่ยงสูง</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="block w-4 h-4 bg-red-500"></span>
-                    <span class="ml-1 text-xs font-medium">เสี่ยงสูงมาก</span>
-                  </div>
-                  <div class="flex items-center">
-                    <span class="block w-6 h-1 bg-black"></span>
-                    <span class="ml-1 text-xs font-medium">
-                      ระดับความรุนแรงที่องค์กรยอมรับ
-                    </span>
-                  </div>
-                </div>
+                <TableIndicator />
               </div>
 
               <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
