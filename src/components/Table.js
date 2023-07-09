@@ -107,8 +107,7 @@ export default function Table({ data }) {
                           rowSpan="5"
                           scope="rowgroup"
                           className="border border-slate-300 bg-neutral-400 text-white"
-                          //style={{ writingMode: "vertical-rl" }}
-                          style={{ writingMode: "vertical-rl" , transform: "rotate(180deg)" }}
+                          style={{ writingMode: "sideways-lr" }}
                         >
                           ผลกระทบ (I)
                         </th>
