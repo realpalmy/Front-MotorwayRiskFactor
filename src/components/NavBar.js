@@ -9,22 +9,29 @@ export default function NavBar() {
           className="max-w-[100rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between"
           aria-label="Global"
         >
-          <Link
-            to="/"
-            className="flex-none text-xl font-semibold text-white"
-          >
-            MOTORWAY RISK FACTOR
+          <Link to="/" className="flex-none text-lg font-semibold text-white">
+            ระบบงานบริหารความเสี่ยงของเงินทุนค่าธรรมเนียมผ่านทาง (Risk
+            Management : RM)
           </Link>
           <div className="flex flex-row items-center gap-5 mt-5 sm:justify-end sm:mt-0 sm:pl-5">
-            <Link
+            <NavLink
               to="/"
-              className="font-medium text-gray-400 hover:text-gray-500"
+              style={({ isActive }) => ({
+                color: isActive ? "#38bdf8" : "#9ca3af",
+              })}
+              className="font-lg text-gray-400 hover:text-gray-500"
             >
               ค้นหา
-            </Link>
-            <Link to="/update" className="font-medium text-blue-500">
+            </NavLink>
+            <NavLink
+              to="/update"
+              style={({ isActive }) => ({
+                color: isActive ? "#38bdf8" : "#9ca3af",
+              })}
+              className="font-lg text-gray-400 hover:text-gray-500"
+            >
               กรอกข้อมูลปัจจัยความเสี่ยง
-            </Link>
+            </NavLink>
           </div>
         </nav>
       </header>

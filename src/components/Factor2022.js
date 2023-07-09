@@ -79,8 +79,8 @@ export default function Factor2022() {
                     }
                   >
                     <option value="">ระบุ ปี</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
+                    <option value="2566">ปี 2566</option>
+                    <option value="2567">ปี 2567</option>
                   </select>
                 </div>
                 <div className="col-span-2">
@@ -91,11 +91,12 @@ export default function Factor2022() {
                       setQuarter(document.getElementById("selectQuarter").value)
                     }
                   >
-                    <option value="">ระบุ ไตรมาส</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="">ระบุ ช่วงเวลา</option>
+                    <option value="0">ต้นปีงบประมาณ</option>
+                    <option value="1">ไตรมาส 1</option>
+                    <option value="2">ไตรมาส 2</option>
+                    <option value="3">ไตรมาส 3</option>
+                    <option value="4">ไตรมาส 4</option>
                   </select>
                 </div>
               </div>

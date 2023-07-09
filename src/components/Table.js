@@ -9,7 +9,6 @@ export default function Table({ data }) {
 
   useEffect(() => {
     setDataArray(emptyArr);
-    //console.log("count");
 
     data.riskData?.forEach((risk) => {
       if (risk.l !== 0 || risk.i !== 0) {
@@ -57,15 +56,22 @@ export default function Table({ data }) {
           <div className="">
             <div className="overflow-hidden">
               <table className="w-full table-fixed border text-center text-sm font-light dark:border-neutral-500">
-                <caption>
-                  ระดับความเสี่ยง ณ ปี {data.year} ไตรมาส {data.quarter}
-                </caption>
+                {data.quarter === 0 ? (
+                  <caption>
+                    ระดับความเสี่ยง ณ ต้นปีงบประมาณ ปี {data.year}
+                  </caption>
+                ) : (
+                  <caption>
+                    ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year}
+                  </caption>
+                )}
+
                 <thead>
                   <tr>
                     <td
                       rowSpan="2"
                       colSpan="2"
-                      className="border border-slate-300 bg-orange-300 h-28"
+                      className="border border-slate-300 bg-orange-300 h-24"
                     >
                       <span>ปัจจัยเสี่ยงที่</span>
                       <p></p>
@@ -76,7 +82,7 @@ export default function Table({ data }) {
                     <th
                       colSpan="5"
                       scope="colgroup"
-                      className="border border-slate-300  bg-neutral-400 text-white"
+                      className="border border-slate-300  bg-neutral-400 text-white h-12"
                     >
                       โอกาส (L)
                     </th>
@@ -100,8 +106,9 @@ export default function Table({ data }) {
                         <th
                           rowSpan="5"
                           scope="rowgroup"
-                          className="rotate-180 border border-slate-300 bg-neutral-400 text-white"
-                          style={{ writingMode: "vertical-rl" }}
+                          className="border border-slate-300 bg-neutral-400 text-white"
+                          //style={{ writingMode: "vertical-rl" }}
+                          style={{ writingMode: "vertical-rl" , transform: "rotate(180deg)" }}
                         >
                           ผลกระทบ (I)
                         </th>
@@ -113,39 +120,66 @@ export default function Table({ data }) {
                         {num}
                       </th>
 
-                      {dataArray[num - 1]?.map((data, index) =>
-                        (index + 1 === 1 && num === 5) ||
-                        (index + 1 === 2 && num === 4) ||
-                        (index + 1 === 4 && num === 2) ||
-                        (index + 1 === 5 && num === 1) ? (
-                          <td
-                            key={index + "" + num}
-                            className={`border-2 ${stair} $ ${color(
-                              index + 1,
-                              num
-                            )}`}
-                          >
-                            {data}
-                          </td>
-                        ) : index + 1 === 3 && num === 3 ? (
-                          <td
-                            key={index + "" + num}
-                            className={`border-2 ${left} ${bottom} ${color(
-                              index + 1,
-                              num
-                            )}`}
-                          >
-                            {data}
-                          </td>
-                        ) : (
-                          <td
-                            key={index + "" + num}
-                            className={`border ${color(index + 1, num)}`}
-                          >
-                            {data}
-                          </td>
-                        )
-                      )}
+                      {data.year === 2566 &&
+                        dataArray[num - 1]?.map((data, index) =>
+                          (index + 1 === 1 && num === 5) ||
+                          (index + 1 === 2 && num === 4) ||
+                          (index + 1 === 4 && num === 2) ||
+                          (index + 1 === 5 && num === 1) ? (
+                            <td
+                              key={index + "" + num}
+                              className={`border-2 ${stair} $ ${color(
+                                index + 1,
+                                num
+                              )}`}
+                            >
+                              {data}
+                            </td>
+                          ) : index + 1 === 3 && num === 3 ? (
+                            <td
+                              key={index + "" + num}
+                              className={`border-2 ${left} ${bottom} ${color(
+                                index + 1,
+                                num
+                              )}`}
+                            >
+                              {data}
+                            </td>
+                          ) : (
+                            <td
+                              key={index + "" + num}
+                              className={`border ${color(index + 1, num)}`}
+                            >
+                              {data}
+                            </td>
+                          )
+                        )}
+
+                      {data.year === 2567 &&
+                        dataArray[num - 1]?.map((data, index) =>
+                          (index + 1 === 1 && num === 5) ||
+                          (index + 1 === 2 && num === 4) ||
+                          (index + 1 === 3 && num === 3) ||
+                          (index + 1 === 4 && num === 2) ||
+                          (index + 1 === 5 && num === 1) ? (
+                            <td
+                              key={index + "" + num}
+                              className={`border-2 ${stair} $ ${color(
+                                index + 1,
+                                num
+                              )}`}
+                            >
+                              {data}
+                            </td>
+                          ) : (
+                            <td
+                              key={index + "" + num}
+                              className={`border ${color(index + 1, num)}`}
+                            >
+                              {data}
+                            </td>
+                          )
+                        )}
                     </tr>
                   ))}
                 </tbody>
