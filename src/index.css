@@ -25,25 +25,7 @@ code {
 }
 
 .rotate {
-
-  transform: rotate(180deg);
-
-
-  /* Legacy vendor prefixes that you probably don't need... */
-
   /* Safari */
   -webkit-transform: rotate(180deg);
-
-  /* Firefox */
-  -moz-transform: rotate(180deg);
-
-  /* IE */
-  -ms-transform: rotate(180deg);
-
-  /* Opera */
-  -o-transform: rotate(180deg);
-
-  /* Internet Explorer */
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-
+  transform: rotate(180deg);
 }
