@@ -3,13 +3,13 @@ const Alert = ({ clickedSave, setClickedSave }) => {
   //const [flag, setFlag] = useState(true);
   return (
     <div className={ clickedSave ? "absolute top-0 container mx-auto middle" : "translate-hide"}>
-      <div className="flex items-center justify-center px-4 lg:px-0 py-12">
+      <div className="flex items-center justify-center px-4 lg:px-0 py-2">
         <div
           id="alert"
           className={
             clickedSave
-              ? "transition duration-300 ease-in-out w-11/12 mx-auto py-3 px-4 bg-green-100 md:flex items-center justify-between shadow rounded"
-              : "transition duration-300 ease-in-out w-11/12 mx-auto py-3 px-4 bg-green-100 md:flex items-center justify-between shadow rounded translate-hide"
+              ? "transition duration-300 w-11/12 mx-auto py-3 px-4 bg-green-100 md:flex items-center justify-between shadow rounded flex flex-row"
+              : "transition duration-300 w-11/12 mx-auto py-3 px-4 bg-green-100 md:flex items-center justify-between shadow rounded flex flex-row translate-hide"
           }
         >
           <div className="sm:flex sm:items-start lg:items-center bg-secondary-100 text-secondary-800">
@@ -18,12 +18,9 @@ const Alert = ({ clickedSave, setClickedSave }) => {
                 บันทึกสำเร็จ
               </p>
             </div>
-            {/* <p className="text-sm sm:text-base  text-[#65a30d] pt-2 sm:pt-0 pb-2 sm:pb-0">
-              บันทึกสำเร็จ  
-            </p> */}
           </div>
 
-          <div className="flex items-center justify-end sm:mt-4 md:mt-0 ml-4">
+          <div className="flex items-center justify-end">
             <div
               onClick={() => setClickedSave(false)}
               className="cursor-pointer text-gray-400"

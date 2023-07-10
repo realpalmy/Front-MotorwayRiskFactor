@@ -14,7 +14,7 @@ export default function SearchGroup() {
     const year = document.getElementById("year").value;
     const quarter = document.getElementById("quarter").value;
 
-    console.log(data);
+    //console.log(data);
 
     setSearchData(() => {
       let searchFactor = [];
@@ -93,7 +93,7 @@ export default function SearchGroup() {
 
             <div className="flex-col border my-4 p-5 rounded">
               <div className="flex flex-col sm:flex-row mb-3 sm:justify-between">
-                <div class="flex w-full">
+                <div className="flex w-full">
                   <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
                 </div>
 

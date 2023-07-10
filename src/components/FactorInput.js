@@ -2,6 +2,7 @@ import { Fragment, useState, useContext } from "react";
 import Table from "./Table";
 import Context from "../Context";
 import Alert from "./Alert";
+import { Transition } from "@headlessui/react";
 
 export default function Factor2022() {
   const { data, updateData } = useContext(Context);
@@ -18,7 +19,6 @@ export default function Factor2022() {
   const [FEU2Chance, setFEU2Chance] = useState(0);
   const [FEU2Effect, setFEU2Effect] = useState(0);
 
-
   const [year, setYear] = useState("2567");
   const [quarter, setQuarter] = useState("");
 
@@ -30,8 +30,7 @@ export default function Factor2022() {
     updateData((prevData) => {
       const newData = prevData?.map((item) => {
         if (item.year == year && item.quarter == quarter) {
-
-          if(year === "2567") {
+          if (year === "2567") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "SIC1") {
                 return {
@@ -47,13 +46,13 @@ export default function Factor2022() {
               }
               return riskItem;
             });
-
             return {
               ...item,
               riskData: newRiskData,
             };
           }
-          if(year === "2566") {
+
+          if (year === "2566") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "OEU1") {
                 return {
@@ -75,35 +74,45 @@ export default function Factor2022() {
               }
               return riskItem;
             });
-
             return {
               ...item,
               riskData: newRiskData,
             };
           }
-          
-
-          
-        }
+        } 
         return item;
       });
+      if(quarter !== '') {
+        setClickedSave(true);
+      }
       return newData;
     });
-
-    setClickedSave(true);
   };
 
   const table_css = "border border-black p-2";
 
   return (
     <Fragment>
-      <Alert clickedSave={clickedSave} setClickedSave={setClickedSave} />
+      <Transition
+        className=""
+        show={clickedSave}
+        enter="transition-all ease-in-out duration-500 delay-[200ms]"
+        enterFrom="opacity-0 translate-y-6"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition-all ease-in-out duration-300"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+      >
+        <Alert clickedSave={clickedSave} setClickedSave={setClickedSave} />
+      </Transition>
 
       <div className="container mx-auto sm:px-2">
         <div className="flex sm:p-0">
           <form onSubmit={updateRiskData} className="flex-col">
             <div className="flex flex-col sm:flex-row justify-between items-center my-4">
-              <h1 className="text-xl font-semibold">บันทึกปัจจัยความเสี่ยง</h1>
+              <h1 className="text-xl font-semibold">
+                บันทึกปัจจัยความเสี่ยงระดับแผนปฏิบัติการ
+              </h1>
 
               <div className="grid grid-cols-4 gap-4 p-2 min-w-[20rem]">
                 <div className="col-span-2 content-end">
@@ -203,7 +212,7 @@ export default function Factor2022() {
                         </select>
                       </div>
                       <div className={"col-span-1 text-center " + table_css}>
-                        {SIC1Chance * SIC1Effect}
+                        {OEU1Chance * OEU1Effect}
                       </div>
                       <div className={"col-span-1 " + table_css}>ใช่</div>
 
@@ -254,13 +263,14 @@ export default function Factor2022() {
                         </select>
                       </div>
                       <div className={"col-span-1 text-center " + table_css}>
-                        {SEU1Chance * SEU1Effect}
+                        {FEU1Chance * FEU1Effect}
                       </div>
                       <div className={"col-span-1 " + table_css}>ใช่</div>
 
                       <div className={"col-span-1 " + table_css}>FEU2</div>
                       <div className={"col-span-3 " + table_css}>
-                        การจัดเก็บค่าธรรมเนียมผ่านระบบ M-Flow รั่วไหล กรณีผู้ใช้ทางหลีกเลี่ยงการจ่ายค่าผ่านทาง
+                        การจัดเก็บค่าธรรมเนียมผ่านระบบ M-Flow รั่วไหล
+                        กรณีผู้ใช้ทางหลีกเลี่ยงการจ่ายค่าผ่านทาง
                       </div>
                       <div className={"col-span-1 " + table_css}>
                         <select
@@ -299,10 +309,9 @@ export default function Factor2022() {
                         </select>
                       </div>
                       <div className={"col-span-1 text-center " + table_css}>
-                        {SEU1Chance * SEU1Effect}
+                        {FEU2Chance * FEU2Effect}
                       </div>
                       <div className={"col-span-1 " + table_css}>ใช่</div>
-
                     </div>
                   </div>
                 </section>
@@ -467,15 +476,15 @@ export default function Factor2022() {
               ตารางข้อมูลปัจจัยความเสี่ยงที่เลือก
             </h2>
             <div className="flex flex-wrap justify-around">
-              {data?.map((riskFactor) =>
-                riskFactor.year == year && riskFactor.quarter == quarter ? (
-                  <Table
-                    key={riskFactor.year + "" + riskFactor.quarter}
-                    data={riskFactor}
-                  />
-                ) : (
-                  <></>
-                )
+              {data?.map(
+                (riskFactor) =>
+                  riskFactor.year == year &&
+                  riskFactor.quarter == quarter && (
+                    <Table
+                      key={riskFactor.year + "" + riskFactor.quarter}
+                      data={riskFactor}
+                    />
+                  )
               )}
             </div>
           </div>

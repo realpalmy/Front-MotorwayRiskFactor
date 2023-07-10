@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 
 export default function Table({ data }) {
-  //console.log(data)
+  // console.log(data)
 
   const emptyArr = new Array(5).fill("")?.map(() => new Array(5).fill(""));
 
@@ -43,7 +43,7 @@ export default function Table({ data }) {
     } else if (risk < 10) {
       return "bg-[#FFFF00]/75";
     } else if (risk < 17) {
-      return "bg-amber-500";
+      return "bg-amber-400";
     } else {
       return "bg-red-500";
     }
@@ -58,32 +58,39 @@ export default function Table({ data }) {
               <table className="w-full table-fixed border text-center text-sm font-light dark:border-neutral-500">
                 {data.list ? (
                   <caption>ความเสี่ยงระดับองค์กร ปี {data.year}</caption>
+                ) : data?.quarter === 0 ? (
+                  <caption>
+                    ระดับความเสี่ยง ณ ต้นปีงบประมาณ ปี {data.year}
+                  </caption>
                 ) : (
-                  data?.quarter === 0 ? (
-                    <caption>
-                      ระดับความเสี่ยง ณ ต้นปีงบประมาณ ปี {data.year}
-                    </caption>
-                  ) : (
-                    <caption>
-                      ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year} ({" "}
-                      {data.monthStart} - {data.monthEnd} )
-                    </caption>
-                  )
+                  <caption>
+                    ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year} ({" "}
+                    {data.monthStart} - {data.monthEnd} )
+                  </caption>
                 )}
-                
 
                 <thead>
                   <tr>
                     <td
                       rowSpan="2"
                       colSpan="2"
-                      className="border border-slate-300 bg-orange-300 h-24"
+                      className={`border border-slate-300 ${data.list ? 'bg-sky-400' : 'bg-orange-300'} h-24`}
                     >
-                      <span>ปัจจัยเสี่ยงที่</span>
-                      <p></p>
-                      <span>เหลืออยู่</span>
-                      <p></p>
-                      <span>(Residual Risks)</span>
+                      {data.list ? (
+                        <Fragment>
+                          <span>ปัจจัยเสี่ยง</span>
+                          <p></p>
+                          <span>ระดับองค์กร</span>
+                        </Fragment>
+                      ) : (
+                        <Fragment>
+                          <span>ปัจจัยเสี่ยงที่</span>
+                          <p></p>
+                          <span>เหลืออยู่</span>
+                          <p></p>
+                          <span>(Residual Risks)</span>
+                        </Fragment>
+                      )}
                     </td>
                     <th
                       colSpan="5"
@@ -128,9 +135,8 @@ export default function Table({ data }) {
                       >
                         {num}
                       </th>
-
                       {data.year === 2566 &&
-                        dataArray[num - 1]?.map((data, index) =>
+                        dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
                           (index + 1 === 4 && num === 2) ||
@@ -140,9 +146,15 @@ export default function Table({ data }) {
                               className={`border-2 ${stair} $ ${color(
                                 index + 1,
                                 num
-                              )}`}
+                              )} ${
+                                factors.length < 24
+                                  ? factors.length < 12
+                                    ? "text-xs"
+                                    : "text-[8px]/[8px] sm:text-[9px]/[9px]"
+                                  : "text-[7px]/[7px] sm:text-[8px]/[8px]"
+                              }`}
                             >
-                              {data}
+                              {factors}
                             </td>
                           ) : index + 1 === 3 && num === 3 ? (
                             <td
@@ -150,22 +162,34 @@ export default function Table({ data }) {
                               className={`border-2 ${left} ${bottom} ${color(
                                 index + 1,
                                 num
-                              )}`}
+                              )} ${
+                                factors.length < 24
+                                  ? factors.length < 12
+                                    ? "text-xs"
+                                    : "text-[8px]/[8px] sm:text-[9px]/[9px]"
+                                  : "text-[7px]/[7px] sm:text-[8px]/[8px]"
+                              }`}
                             >
-                              {data}
+                              {factors}
                             </td>
                           ) : (
                             <td
                               key={index + "" + num}
-                              className={`border ${color(index + 1, num)}`}
+                              className={`border ${color(index + 1, num)} ${
+                                factors.length < 24
+                                  ? factors.length < 12
+                                    ? "text-xs"
+                                    : "text-[8px]/[8px] sm:text-[9px]/[9px]"
+                                  : "text-[7px]/[7px] sm:text-[8px]/[8px]"
+                              }`}
                             >
-                              {data}
+                              {factors}
                             </td>
                           )
                         )}
 
                       {data.year === 2567 &&
-                        dataArray[num - 1]?.map((data, index) =>
+                        dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
                           (index + 1 === 3 && num === 3) ||
@@ -176,16 +200,28 @@ export default function Table({ data }) {
                               className={`border-2 ${stair} $ ${color(
                                 index + 1,
                                 num
-                              )}`}
+                              )} ${
+                                factors.length < 24
+                                  ? factors.length < 12
+                                    ? "text-xs"
+                                    : "text-[8px]/[8px] sm:text-[9px]/[9px]"
+                                  : "text-[7px]/[7px] sm:text-[8px]/[8px]"
+                              }`}
                             >
-                              {data}
+                              {factors}
                             </td>
                           ) : (
                             <td
                               key={index + "" + num}
-                              className={`border ${color(index + 1, num)}`}
+                              className={`border ${color(index + 1, num)} ${
+                                factors.length < 24
+                                  ? factors.length < 12
+                                    ? "text-xs"
+                                    : "text-[8px]/[8px] sm:text-[9px]/[9px]"
+                                  : "text-[7px]/[7px] sm:text-[8px]/[8px]"
+                              }`}
                             >
-                              {data}
+                              {factors}
                             </td>
                           )
                         )}

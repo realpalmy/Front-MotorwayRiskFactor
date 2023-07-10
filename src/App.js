@@ -10,8 +10,8 @@ import UpdateFactor from "./pages/UpdateFactor";
 
 function App() {
 
-  const path = "http://localhost:8000/";
-  //const path = "https://motorway-riskfactor-server-ccfd827b1ce8.herokuapp.com/";
+  //const path = "http://localhost:8000/";
+  const path = "https://motorway-riskfactor-server-ccfd827b1ce8.herokuapp.com/";
   
 
   // const [data, setData] = useState(riskFactors);
@@ -23,17 +23,17 @@ function App() {
   useEffect(() => {
     const jsonData = JSON.stringify(data);
 
-    // if(jsonData !== '[]') {
-    //   axios
-    //   .post(path, { jsonData })
-    //   .then((response) => {
-    //     //console.log("post success ", jsonData)
-    //     console.log("post success")
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);  
-    //   });
-    // }
+    if(jsonData !== '[]') {
+      axios
+      .post(path, { jsonData })
+      .then((response) => {
+        //console.log("post success ", jsonData)
+        console.log("post success")
+      })
+      .catch((error) => {
+        console.log(error);  
+      });
+    }
   }, [data])
 
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +62,8 @@ function App() {
     <Fragment>
       <Context.Provider value={{ data, updateData }}>
         <Routes>
-          <Route path="/" element={<Search />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/update" element={<UpdateFactor />} />
           <Route path="*" element={<Search />}/>
         </Routes>
