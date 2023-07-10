@@ -31,7 +31,7 @@ export default function Home() {
                     <span className="relative leading-normal sm:leading-snug">
                       ระบบงานบริหารความเสี่ยงของเงินทุนค่าธรรมเนียมผ่านทาง 
                       <p></p>
-                      (RiskManagement : RM)
+                      (Risk Management : RM)
                     </span>
                   </span>
                 </h2>

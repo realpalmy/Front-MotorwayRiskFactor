@@ -119,11 +119,11 @@ export default function Table({ data }) {
                         <th
                           rowSpan="5"
                           scope="rowgroup"
-                          className="border border-slate-300 bg-neutral-400 text-white w-100"
+                          className="rotate border border-slate-300 bg-neutral-400 text-white w-100"
                           //style={{ writingMode: "vertical-rl" }}
                           style={{
                             writingMode: "tb",
-                            transform: "rotate(180deg)",
+                            //transform: "rotate(180deg)",
                           }}
                         >
                           ผลกระทบ (I)
