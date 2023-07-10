@@ -26,6 +26,8 @@ code {
 
 .rotate {
   /* Safari */
-  -webkit-transform: rotate(180deg);
+  /* -webkit-transform: rotate(180deg) translate(180deg) rotate(-180deg); */
+  -webkit-transform: translate(-5em);
   transform: rotate(180deg);
 }
+
