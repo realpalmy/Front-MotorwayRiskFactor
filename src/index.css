@@ -26,7 +26,7 @@ code {
 
 .rotate {
   /* Safari  180 -90 90 -180*/
-  -webkit-transform: rotate(270deg); 
+  -webkit-transform: rotate(-270deg); 
   transform: rotate(180deg);
 }
 
