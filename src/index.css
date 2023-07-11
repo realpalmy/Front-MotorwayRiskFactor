@@ -27,8 +27,8 @@ code {
 .rotate {
   /* Safari */
   -ms-writing-mode: vertical-lr;
-  writing-mode: vertical-lr;
-  -webkit-transform: rotate(-90deg);
-  transform: rotate(180deg);
+  /* writing-mode: tb; */
+  /* -webkit-transform: rotate(-90deg); */
+  /* transform: rotate(-0.25turn); */
 }
 

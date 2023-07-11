@@ -119,7 +119,6 @@ export default function Table({ data }) {
                           rowSpan="5"
                           scope="rowgroup"
                           className="rotate border border-slate-300 bg-neutral-400 text-white w-100"
-                          //style={{ writingMode: "vertical-rl" }}
                         >
                           ผลกระทบ (I)
                         </th>
