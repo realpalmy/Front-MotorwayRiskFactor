@@ -64,8 +64,7 @@ export default function Table({ data }) {
                   </caption>
                 ) : (
                   <caption>
-                    ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year} ({" "}
-                    {data.monthStart} - {data.monthEnd} )
+                    ระดับความเสี่ยง ณ ไตรมาส {data.quarter} ปี {data.year} ({data.monthStart} - {data.monthEnd})
                   </caption>
                 )}
 
@@ -131,7 +130,7 @@ export default function Table({ data }) {
                       >
                         {num}
                       </th>
-                      {data.year === 2566 &&
+                      {data.year === 2567 &&
                         dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
@@ -184,7 +183,7 @@ export default function Table({ data }) {
                           )
                         )}
 
-                      {data.year === 2567 &&
+                      {data.year === 2566 &&
                         dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
