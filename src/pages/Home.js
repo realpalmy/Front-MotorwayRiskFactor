@@ -36,7 +36,7 @@ export default function Home() {
                   </span>
                 </h2>
                 <p className="text-base font-semibold text-white md:text-lg">
-                  กองหลวงพิเศษระหว่างเมือง
+                  กองทางหลวงพิเศษระหว่างเมือง กรมทางหลวง
                 </p>
               </div>
               <div>
