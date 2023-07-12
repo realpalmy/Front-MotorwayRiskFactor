@@ -35,7 +35,7 @@ export default function Search() {
               className={`w-full inline-block px-1 sm:px-4 py-4 rounded-t-lg ${activeTab === 2 ? 'text-blue-600 bg-gray-100 ' : 'hover:text-gray-600 hover:bg-gray-50'}`}
               onClick={() => handleTabClick(2)}
             >
-              ความเสี่ยงระดับแผนปฏิบัติการ
+              ความเสี่ยงที่เหลืออยู่
             </Link>
           </li>
         </ul>

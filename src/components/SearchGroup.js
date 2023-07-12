@@ -40,7 +40,7 @@ export default function SearchGroup() {
       <div className="container mx-auto my-6 px-2">
         <div className="p-2 sm:p-0">
           <h1 className="text-xl font-semibold text-center sm:text-start sm:pb-1">
-            ค้นหาปัจจัยเสี่ยงระดับแผนปฏิบัติการ
+            ค้นหาปัจจัยเสี่ยงที่เหลืออยู่
           </h1>
           <div className="flex flex-col justify-start">
             <form onSubmit={searchForm} className="flex justify-start mb-6">

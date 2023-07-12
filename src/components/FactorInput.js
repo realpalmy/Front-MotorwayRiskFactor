@@ -111,7 +111,7 @@ export default function Factor2022() {
           <form onSubmit={updateRiskData} className="flex-col">
             <div className="flex flex-col sm:flex-row justify-between items-center my-4">
               <h1 className="text-xl font-semibold">
-                บันทึกปัจจัยความเสี่ยงระดับแผนปฏิบัติการ
+                บันทึกปัจจัยเสี่ยงที่เหลืออยู่
               </h1>
 
               <div className="grid grid-cols-4 gap-4 p-2 min-w-[20rem]">
