@@ -6,7 +6,7 @@ export default function TableIndicator() {
       <div className="flex flex-wrap gap-1 sm:gap-3 justify-start sm:justify-end mb-3 w-full">
           <div className="flex items-center">
             <span className="block w-4 h-4 bg-lime-400"></span>
-            <span className="ml-1 text-xs font-medium">เสี่ยงน้อย</span>
+            <span className="ml-1 text-xs font-medium">เสี่ยงต่ำ</span>
           </div>
           <div className="flex items-center">
             <span className="block w-4 h-4 bg-[#FFFF00]/75"></span>
