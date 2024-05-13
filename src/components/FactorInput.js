@@ -3,6 +3,7 @@ import Table from "./Table";
 import Context from "../Context";
 import Alert from "./Alert";
 import { Transition } from "@headlessui/react";
+import axios from "axios";
 
 export default function Factor2022() {
   const { data, updateData } = useContext(Context);
@@ -23,6 +24,24 @@ export default function Factor2022() {
   const [quarter, setQuarter] = useState("");
 
   const [clickedSave, setClickedSave] = useState(false);
+
+  /* Update database */
+  const path = "http://localhost:8000/";
+  const updateFactors = (year, quarter, factorData) => {
+    //console.log(year, quarter, factorData)
+    try {
+      axios.put(path + `updateFactor/${year}/${quarter}`, factorData)
+        .then(response => {
+          console.log(response.data.message); 
+        })
+        .catch(error => {
+          console.error('Error updating data:', error.message); 
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  /* Update database */
 
   const updateRiskData = (event) => {
     event.preventDefault();
@@ -46,6 +65,7 @@ export default function Factor2022() {
               }
               return riskItem;
             });
+            updateFactors(year, quarter, newRiskData)
             return {
               ...item,
               riskData: newRiskData,
@@ -74,6 +94,7 @@ export default function Factor2022() {
               }
               return riskItem;
             });
+            updateFactors(year, quarter, newRiskData)
             return {
               ...item,
               riskData: newRiskData,
@@ -118,13 +139,14 @@ export default function Factor2022() {
                 <div className="col-span-2 content-end">
                   <select
                     id="selectYear"
+                    value={2567}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={() =>
                       setYear(document.getElementById("selectYear").value)
                     }
                   >
                     <option value="2566">ปี 2566</option>
-                    <option value="2567" selected>
+                    <option value="2567">
                       ปี 2567
                     </option>
                   </select>

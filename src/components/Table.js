@@ -11,12 +11,10 @@ export default function Table({ data }) {
     setDataArray(emptyArr);
 
     data.riskData?.forEach((risk) => {
-      if (risk.l !== 0 || risk.i !== 0) {
+      if (risk.l > 0 && risk.i > 0) {
         setDataArray(emptyArr);
 
-        // const newRiskName = [...dataArray];
         const newRiskName = [...emptyArr];
-        //const newRiskName = emptyArr;
         if (!newRiskName[risk.i - 1][risk.l - 1].includes(risk.name)) {
           if (newRiskName[risk.i - 1][risk.l - 1] !== "") {
             newRiskName[risk.i - 1][risk.l - 1] += ", " + risk.name;
