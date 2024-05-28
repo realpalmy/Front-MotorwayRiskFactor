@@ -9,10 +9,9 @@ import UpdateFactor from "./pages/UpdateFactor";
 
 function App() {
 
-  const path = "http://localhost:8000/";
+  const path = "https://cxjs521rw8.execute-api.ap-southeast-1.amazonaws.com/test/";
+  //const path = "http://localhost:8000/";
   //const path = "https://s86s2r38q9.execute-api.ap-southeast-1.amazonaws.com/staging/data";
-  //const path = "https://motorway-riskfactor-server-ccfd827b1ce8.herokuapp.com/";
-  
 
   const [data, setData] = useState([]);
   const updateData = (newData) => {
@@ -41,8 +40,11 @@ function App() {
   const fetchData = async () => {
     try {
       const riskFactorsData = await axios.get(path);
-      // console.log(riskFactorsData.data)
-      setData(riskFactorsData.data);
+      //riskFactorsData.data.body
+      //const data = JSON.parse(riskFactorsData.data);
+      //console.log(riskFactorsData);
+      const data = riskFactorsData.data;
+      setData(data);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
