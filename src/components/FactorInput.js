@@ -5,14 +5,20 @@ import Alert from "./Alert";
 import { Transition } from "@headlessui/react";
 import axios from "axios";
 
-export default function Factor2022() {
+export default function Factors() {
   const { data, updateData } = useContext(Context);
 
+  //2568
+  const [OEU168Chance, setOEU168Chance] = useState(0);
+  const [OEU168Effect, setOEU168Effect] = useState(0);
+
+  //2567
   const [SIC1Chance, setSIC1Chance] = useState(0);
   const [SIC1Effect, setSIC1Effect] = useState(0);
   const [SEU1Chance, setSEU1Chance] = useState(0);
   const [SEU1Effect, setSEU1Effect] = useState(0);
 
+  //2566
   const [OEU1Chance, setOEU1Chance] = useState(0);
   const [OEU1Effect, setOEU1Effect] = useState(0);
   const [FEU1Chance, setFEU1Chance] = useState(0);
@@ -20,7 +26,7 @@ export default function Factor2022() {
   const [FEU2Chance, setFEU2Chance] = useState(0);
   const [FEU2Effect, setFEU2Effect] = useState(0);
 
-  const [year, setYear] = useState("2567");
+  const [year, setYear] = useState("2568");
   const [quarter, setQuarter] = useState("");
 
   const [clickedSave, setClickedSave] = useState(false);
@@ -49,7 +55,26 @@ export default function Factor2022() {
 
     updateData((prevData) => {
       const newData = prevData?.map((item) => {
-        if (item.year == year && item.quarter == quarter) {
+        if (item.year === parseInt(year) && item.quarter === parseInt(quarter)) {
+          //68
+          if (year === "2568") {
+            const newRiskData = item.riskData?.map((riskItem) => {
+              if (riskItem.name === "OEU1") {
+                return {
+                  ...riskItem,
+                  ...{ l: parseInt(OEU168Chance), i: parseInt(OEU168Effect) },
+                };
+              }
+              return riskItem;
+            });
+            updateFactors(year, quarter, newRiskData)
+            return {
+              ...item,
+              riskData: newRiskData,
+            };
+          }
+
+          //67
           if (year === "2567") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "SIC1") {
@@ -73,6 +98,7 @@ export default function Factor2022() {
             };
           }
 
+          //66
           if (year === "2566") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "OEU1") {
@@ -95,6 +121,7 @@ export default function Factor2022() {
               }
               return riskItem;
             });
+
             updateFactors(year, quarter, newRiskData)
             return {
               ...item,
@@ -140,16 +167,15 @@ export default function Factor2022() {
                 <div className="col-span-2 content-end">
                   <select
                     id="selectYear"
-                    defaultValue={2567}
+                    defaultValue={2568}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={() =>
                       setYear(document.getElementById("selectYear").value)
                     }
                   >
                     <option value="2566">ปี 2566</option>
-                    <option value="2567">
-                      ปี 2567
-                    </option>
+                    <option value="2567">ปี 2567</option>
+                    <option value="2568">ปี 2568</option>
                   </select>
                 </div>
                 <div className="col-span-2">
@@ -189,7 +215,7 @@ export default function Factor2022() {
                       </div>
 
                       <div className={"col-span-8 border border-black px-2"}>
-                        1.ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
+                        1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
                         (Operational External Uncontrollable Risk: OEU)
                       </div>
 
@@ -473,7 +499,84 @@ export default function Factor2022() {
               </div>
             )}
 
-            {year === "2567" || year === "2566" ? (
+            {year === "2568" && (
+              <div className="overflow-x-auto w-screen sm:w-full px-2 sm:p-0">
+                <section>
+                  <div className="flex sm:justify-center">
+                    <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
+                      <div className={"col-span-4 " + table_css}>
+                        ปัจจัยความเสี่ยง
+                      </div>
+                      <div className={"col-span-1 " + table_css}>โอกาส</div>
+                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
+                      <div className={"col-span-1 " + table_css}>
+                        ความรุนแรงของความเสี่ยงระดับองค์กร
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        หน่วยงานรับผิดชอบ
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        ความเสี่ยงเหลืออยู่ (Residual Risk)
+                      </div>
+
+                      <div className={"col-span-9 border border-black px-2"}>
+                        1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้ (Operational External Uncontrollable Risk: OEU)
+                      </div>
+
+                      <div className={"col-span-1 " + table_css}>OEU1</div>
+                      <div className={"col-span-3 " + table_css}>
+                        ความมั่นคงของโครงข่ายทางหลวงพิเศษระหว่างเมืองเมื่อเกิดเหตุฉุกเฉิน
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="OEU168Chance"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          onChange={() =>
+                            setOEU168Chance(
+                              document.getElementById("OEU168Chance").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุ โอกาส</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="OEU168Effect"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          onChange={() =>
+                            setOEU168Effect(
+                              document.getElementById("OEU168Effect").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุความเสี่ยง</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 text-center " + table_css}>
+                        {SIC1Chance * SIC1Effect}
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        แขวงทางหลวงพิเศษระหว่างเมือง
+                      </div>
+                      <div className={"col-span-1 " + table_css}>ใช่</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {year === "2567" || year === "2566" || year === "2568" ? (
               <div className="flex justify-end my-4">
                 <button
                   id="savaButton"
