@@ -9,40 +9,18 @@ import UpdateFactor from "./pages/UpdateFactor";
 
 function App() {
 
-  const path = "https://cxjs521rw8.execute-api.ap-southeast-1.amazonaws.com/test/";
-  //const path = "http://localhost:8000/";
-  //const path = "https://s86s2r38q9.execute-api.ap-southeast-1.amazonaws.com/staging/data";
-
+  const path = process.env.REACT_APP_API_URL;
   const [data, setData] = useState([]);
   const updateData = (newData) => {
     setData(newData);
   };
-
-  //It dose not need to post to change the json data
-  /* useEffect(() => {
-    const jsonData = JSON.stringify(data);
-
-    if(jsonData !== '[]') {
-      axios
-      .post(path, { jsonData })
-      .then((response) => {
-        //console.log("post success ", jsonData)
-        console.log("post success")
-      })
-      .catch((error) => {
-        console.log(error);  
-      });
-    }
-  }, [data]) */
 
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
     try {
       const riskFactorsData = await axios.get(path);
-      //riskFactorsData.data.body
       //const data = JSON.parse(riskFactorsData.data);
-      //console.log(riskFactorsData);
       const data = riskFactorsData.data;
       setData(data);
       setIsLoading(false);

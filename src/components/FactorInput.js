@@ -26,13 +26,12 @@ export default function Factor2022() {
   const [clickedSave, setClickedSave] = useState(false);
 
   /* Update database */
-  //const path = "http://localhost:8000/";
-  const path = "https://cxjs521rw8.execute-api.ap-southeast-1.amazonaws.com/test";
+  const path = process.env.REACT_APP_API_URL;
 
   const updateFactors = (year, quarter, factorData) => {
     //console.log(year, quarter, factorData)
     try {
-      axios.put(path + `/${year}/${quarter}`, factorData)
+      axios.put(path + `${year}/${quarter}`, factorData)
         .then(response => {
           console.log(response); 
         })
