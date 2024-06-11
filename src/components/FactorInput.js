@@ -1,4 +1,4 @@
-import { Fragment, useState, useContext } from "react";
+import { Fragment, useState, useContext, useEffect } from "react";
 import Table from "./Table";
 import Context from "../Context";
 import Alert from "./Alert";
@@ -49,6 +49,34 @@ export default function Factors() {
     }
   }
   /* Update database */
+
+  useEffect(() => {
+    if(year >= 0 && quarter >= 0 && year !== "" && quarter !== "") {
+      const factors = data.find((factor) => factor?.year === parseInt(year) && factor?.quarter === parseInt(quarter))?.riskData
+      if (year === "2568") {
+        const OEU1 = factors.find((factor) => factor?.name === "OEU1")
+        setOEU168Chance(OEU1?.l)
+        setOEU168Effect(OEU1?.i)
+      } else if (year === "2567") {
+        const SIC1 = factors.find((factor) => factor?.name === "SIC1")
+        setSIC1Chance(SIC1?.l)
+        setSIC1Effect(SIC1?.i)
+        const SEU1 = factors.find((factor) => factor?.name === "SEU1")
+        setSEU1Chance(SEU1?.l)
+        setSEU1Effect(SEU1?.i)
+      } else if (year === "2566") {
+        const OEU1 = factors.find((factor) => factor?.name === "OEU1")
+        setOEU1Chance(OEU1?.l)
+        setOEU1Effect(OEU1?.i)
+        const FEU1 = factors.find((factor) => factor?.name === "FEU1")
+        setFEU1Chance(FEU1?.l)
+        setFEU1Effect(FEU1?.i)
+        const FEU2 = factors.find((factor) => factor?.name === "FEU2")
+        setFEU2Chance(FEU2?.l)
+        setFEU2Effect(FEU2?.i)
+      }
+    }
+  }, [year, quarter])
 
   const updateRiskData = (event) => {
     event.preventDefault();
@@ -140,6 +168,41 @@ export default function Factors() {
 
   const table_css = "border border-black p-2";
 
+  const headerSectionWORes = (
+    <>
+      <div className={"col-span-4 " + table_css}>
+        ปัจจัยความเสี่ยง
+      </div>
+      <div className={"col-span-1 " + table_css}>โอกาส</div>
+      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
+      <div className={"col-span-1 " + table_css}>
+        ความรุนแรงของความเสี่ยงระดับองค์กร
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        ความเสี่ยงเหลืออยู่ (Residual Risk)
+      </div>
+    </>
+  )
+
+  const headerSectionWRes = (
+    <>
+      <div className={"col-span-4 " + table_css}>
+        ปัจจัยความเสี่ยง
+      </div>
+      <div className={"col-span-1 " + table_css}>โอกาส</div>
+      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
+      <div className={"col-span-1 " + table_css}>
+        ความรุนแรงของความเสี่ยงระดับองค์กร
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        หน่วยงานรับผิดชอบ
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        ความเสี่ยงเหลืออยู่ (Residual Risk)
+      </div>
+    </>
+  )
+
   return (
     <Fragment>
       <Transition
@@ -202,18 +265,8 @@ export default function Factors() {
                 <section>
                   <div className="flex sm:justify-center">
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-8 align border border-black">
-                      <div className={"col-span-4 " + table_css}>
-                        ปัจจัยความเสี่ยง
-                      </div>
-                      <div className={"col-span-1 " + table_css}>โอกาส</div>
-                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความรุนแรงของความเสี่ยงระดับองค์กร
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความเสี่ยงเหลืออยู่ (Residual Risk)
-                      </div>
-
+                      {headerSectionWORes}
+                    
                       <div className={"col-span-8 border border-black px-2"}>
                         1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
                         (Operational External Uncontrollable Risk: OEU)
@@ -228,6 +281,7 @@ export default function Factors() {
                         <select
                           id="OEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU1Chance}
                           onChange={() =>
                             setOEU1Chance(
                               document.getElementById("OEU1Chance").value
@@ -246,10 +300,11 @@ export default function Factors() {
                         <select
                           id="OEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU1Effect}
                           onChange={() =>
                             setOEU1Effect(
                               document.getElementById("OEU1Effect").value
-                            )
+                            )                          
                           }
                         >
                           <option value="0">ระบุความเสี่ยง</option>
@@ -279,6 +334,7 @@ export default function Factors() {
                         <select
                           id="FEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU1Chance}
                           onChange={() =>
                             setFEU1Chance(
                               document.getElementById("FEU1Chance").value
@@ -297,6 +353,7 @@ export default function Factors() {
                         <select
                           id="FEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU1Effect}
                           onChange={() =>
                             setFEU1Effect(
                               document.getElementById("FEU1Effect").value
@@ -325,6 +382,7 @@ export default function Factors() {
                         <select
                           id="FEU2Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU2Chance}
                           onChange={() =>
                             setFEU2Chance(
                               document.getElementById("FEU2Chance").value
@@ -343,6 +401,7 @@ export default function Factors() {
                         <select
                           id="FEU2Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU2Effect}
                           onChange={() =>
                             setFEU2Effect(
                               document.getElementById("FEU2Effect").value
@@ -372,20 +431,7 @@ export default function Factors() {
                 <section>
                   <div className="flex sm:justify-center">
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
-                      <div className={"col-span-4 " + table_css}>
-                        ปัจจัยความเสี่ยง
-                      </div>
-                      <div className={"col-span-1 " + table_css}>โอกาส</div>
-                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความรุนแรงของความเสี่ยงระดับองค์กร
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        หน่วยงานรับผิดชอบ
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความเสี่ยงเหลืออยู่ (Residual Risk)
-                      </div>
+                      {headerSectionWRes}
 
                       <div className={"col-span-9 border border-black px-2"}>
                         1. ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายในที่ควบคุมได้
@@ -400,6 +446,7 @@ export default function Factors() {
                         <select
                           id="SIC1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Chance}
                           onChange={() =>
                             setSIC1Chance(
                               document.getElementById("SIC1Chance").value
@@ -418,6 +465,7 @@ export default function Factors() {
                         <select
                           id="SIC1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Effect}
                           onChange={() =>
                             setSIC1Effect(
                               document.getElementById("SIC1Effect").value
@@ -454,6 +502,7 @@ export default function Factors() {
                         <select
                           id="SEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SEU1Chance}
                           onChange={() =>
                             setSEU1Chance(
                               document.getElementById("SEU1Chance").value
@@ -472,6 +521,7 @@ export default function Factors() {
                         <select
                           id="SEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SEU1Effect}
                           onChange={() =>
                             setSEU1Effect(
                               document.getElementById("SEU1Effect").value
@@ -504,21 +554,8 @@ export default function Factors() {
                 <section>
                   <div className="flex sm:justify-center">
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
-                      <div className={"col-span-4 " + table_css}>
-                        ปัจจัยความเสี่ยง
-                      </div>
-                      <div className={"col-span-1 " + table_css}>โอกาส</div>
-                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความรุนแรงของความเสี่ยงระดับองค์กร
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        หน่วยงานรับผิดชอบ
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความเสี่ยงเหลืออยู่ (Residual Risk)
-                      </div>
-
+                      {headerSectionWRes}
+                      
                       <div className={"col-span-9 border border-black px-2"}>
                         1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้ (Operational External Uncontrollable Risk: OEU)
                       </div>
@@ -531,6 +568,7 @@ export default function Factors() {
                         <select
                           id="OEU168Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU168Chance}
                           onChange={() =>
                             setOEU168Chance(
                               document.getElementById("OEU168Chance").value
@@ -549,6 +587,7 @@ export default function Factors() {
                         <select
                           id="OEU168Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU168Effect}
                           onChange={() =>
                             setOEU168Effect(
                               document.getElementById("OEU168Effect").value
