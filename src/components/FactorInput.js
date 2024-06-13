@@ -1,18 +1,24 @@
-import { Fragment, useState, useContext } from "react";
+import { Fragment, useState, useContext, useEffect } from "react";
 import Table from "./Table";
 import Context from "../Context";
 import Alert from "./Alert";
 import { Transition } from "@headlessui/react";
 import axios from "axios";
 
-export default function Factor2022() {
+export default function Factors() {
   const { data, updateData } = useContext(Context);
 
+  //2568
+  const [OEU168Chance, setOEU168Chance] = useState(0);
+  const [OEU168Effect, setOEU168Effect] = useState(0);
+
+  //2567
   const [SIC1Chance, setSIC1Chance] = useState(0);
   const [SIC1Effect, setSIC1Effect] = useState(0);
   const [SEU1Chance, setSEU1Chance] = useState(0);
   const [SEU1Effect, setSEU1Effect] = useState(0);
 
+  //2566
   const [OEU1Chance, setOEU1Chance] = useState(0);
   const [OEU1Effect, setOEU1Effect] = useState(0);
   const [FEU1Chance, setFEU1Chance] = useState(0);
@@ -20,19 +26,18 @@ export default function Factor2022() {
   const [FEU2Chance, setFEU2Chance] = useState(0);
   const [FEU2Effect, setFEU2Effect] = useState(0);
 
-  const [year, setYear] = useState("2567");
+  const [year, setYear] = useState("2568");
   const [quarter, setQuarter] = useState("");
 
   const [clickedSave, setClickedSave] = useState(false);
 
   /* Update database */
-  //const path = "http://localhost:8000/";
-  const path = "https://cxjs521rw8.execute-api.ap-southeast-1.amazonaws.com/test";
+  const path = process.env.REACT_APP_API_URL;
 
   const updateFactors = (year, quarter, factorData) => {
     //console.log(year, quarter, factorData)
     try {
-      axios.put(path + `/${year}/${quarter}`, factorData)
+      axios.put(path + `${year}/${quarter}`, factorData)
         .then(response => {
           console.log(response); 
         })
@@ -45,12 +50,59 @@ export default function Factor2022() {
   }
   /* Update database */
 
+  useEffect(() => {
+    if(year >= 0 && quarter >= 0 && year !== "" && quarter !== "") {
+      const factors = data.find((factor) => factor?.year === parseInt(year) && factor?.quarter === parseInt(quarter))?.riskData
+      if (year === "2568") {
+        const OEU1 = factors.find((factor) => factor?.name === "OEU1")
+        setOEU168Chance(OEU1?.l)
+        setOEU168Effect(OEU1?.i)
+      } else if (year === "2567") {
+        const SIC1 = factors.find((factor) => factor?.name === "SIC1")
+        setSIC1Chance(SIC1?.l)
+        setSIC1Effect(SIC1?.i)
+        const SEU1 = factors.find((factor) => factor?.name === "SEU1")
+        setSEU1Chance(SEU1?.l)
+        setSEU1Effect(SEU1?.i)
+      } else if (year === "2566") {
+        const OEU1 = factors.find((factor) => factor?.name === "OEU1")
+        setOEU1Chance(OEU1?.l)
+        setOEU1Effect(OEU1?.i)
+        const FEU1 = factors.find((factor) => factor?.name === "FEU1")
+        setFEU1Chance(FEU1?.l)
+        setFEU1Effect(FEU1?.i)
+        const FEU2 = factors.find((factor) => factor?.name === "FEU2")
+        setFEU2Chance(FEU2?.l)
+        setFEU2Effect(FEU2?.i)
+      }
+    }
+  }, [year, quarter])
+
   const updateRiskData = (event) => {
     event.preventDefault();
 
     updateData((prevData) => {
       const newData = prevData?.map((item) => {
-        if (item.year == year && item.quarter == quarter) {
+        if (item.year === parseInt(year) && item.quarter === parseInt(quarter)) {
+          //68
+          if (year === "2568") {
+            const newRiskData = item.riskData?.map((riskItem) => {
+              if (riskItem.name === "OEU1") {
+                return {
+                  ...riskItem,
+                  ...{ l: parseInt(OEU168Chance), i: parseInt(OEU168Effect) },
+                };
+              }
+              return riskItem;
+            });
+            updateFactors(year, quarter, newRiskData)
+            return {
+              ...item,
+              riskData: newRiskData,
+            };
+          }
+
+          //67
           if (year === "2567") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "SIC1") {
@@ -74,6 +126,7 @@ export default function Factor2022() {
             };
           }
 
+          //66
           if (year === "2566") {
             const newRiskData = item.riskData?.map((riskItem) => {
               if (riskItem.name === "OEU1") {
@@ -96,6 +149,7 @@ export default function Factor2022() {
               }
               return riskItem;
             });
+
             updateFactors(year, quarter, newRiskData)
             return {
               ...item,
@@ -113,6 +167,41 @@ export default function Factor2022() {
   };
 
   const table_css = "border border-black p-2";
+
+  const headerSectionWORes = (
+    <>
+      <div className={"col-span-4 " + table_css}>
+        ปัจจัยความเสี่ยง
+      </div>
+      <div className={"col-span-1 " + table_css}>โอกาส</div>
+      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
+      <div className={"col-span-1 " + table_css}>
+        ความรุนแรงของความเสี่ยงระดับองค์กร
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        ความเสี่ยงเหลืออยู่ (Residual Risk)
+      </div>
+    </>
+  )
+
+  const headerSectionWRes = (
+    <>
+      <div className={"col-span-4 " + table_css}>
+        ปัจจัยความเสี่ยง
+      </div>
+      <div className={"col-span-1 " + table_css}>โอกาส</div>
+      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
+      <div className={"col-span-1 " + table_css}>
+        ความรุนแรงของความเสี่ยงระดับองค์กร
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        หน่วยงานรับผิดชอบ
+      </div>
+      <div className={"col-span-1 " + table_css}>
+        ความเสี่ยงเหลืออยู่ (Residual Risk)
+      </div>
+    </>
+  )
 
   return (
     <Fragment>
@@ -141,16 +230,15 @@ export default function Factor2022() {
                 <div className="col-span-2 content-end">
                   <select
                     id="selectYear"
-                    defaultValue={2567}
+                    defaultValue={2568}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     onChange={() =>
                       setYear(document.getElementById("selectYear").value)
                     }
                   >
                     <option value="2566">ปี 2566</option>
-                    <option value="2567">
-                      ปี 2567
-                    </option>
+                    <option value="2567">ปี 2567</option>
+                    <option value="2568">ปี 2568</option>
                   </select>
                 </div>
                 <div className="col-span-2">
@@ -177,20 +265,10 @@ export default function Factor2022() {
                 <section>
                   <div className="flex sm:justify-center">
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-8 align border border-black">
-                      <div className={"col-span-4 " + table_css}>
-                        ปัจจัยความเสี่ยง
-                      </div>
-                      <div className={"col-span-1 " + table_css}>โอกาส</div>
-                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความรุนแรงของความเสี่ยงระดับองค์กร
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความเสี่ยงเหลืออยู่ (Residual Risk)
-                      </div>
-
+                      {headerSectionWORes}
+                    
                       <div className={"col-span-8 border border-black px-2"}>
-                        1.ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
+                        1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
                         (Operational External Uncontrollable Risk: OEU)
                       </div>
 
@@ -203,6 +281,7 @@ export default function Factor2022() {
                         <select
                           id="OEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU1Chance}
                           onChange={() =>
                             setOEU1Chance(
                               document.getElementById("OEU1Chance").value
@@ -221,10 +300,11 @@ export default function Factor2022() {
                         <select
                           id="OEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU1Effect}
                           onChange={() =>
                             setOEU1Effect(
                               document.getElementById("OEU1Effect").value
-                            )
+                            )                          
                           }
                         >
                           <option value="0">ระบุความเสี่ยง</option>
@@ -254,6 +334,7 @@ export default function Factor2022() {
                         <select
                           id="FEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU1Chance}
                           onChange={() =>
                             setFEU1Chance(
                               document.getElementById("FEU1Chance").value
@@ -272,6 +353,7 @@ export default function Factor2022() {
                         <select
                           id="FEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU1Effect}
                           onChange={() =>
                             setFEU1Effect(
                               document.getElementById("FEU1Effect").value
@@ -300,6 +382,7 @@ export default function Factor2022() {
                         <select
                           id="FEU2Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU2Chance}
                           onChange={() =>
                             setFEU2Chance(
                               document.getElementById("FEU2Chance").value
@@ -318,6 +401,7 @@ export default function Factor2022() {
                         <select
                           id="FEU2Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={FEU2Effect}
                           onChange={() =>
                             setFEU2Effect(
                               document.getElementById("FEU2Effect").value
@@ -347,20 +431,7 @@ export default function Factor2022() {
                 <section>
                   <div className="flex sm:justify-center">
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
-                      <div className={"col-span-4 " + table_css}>
-                        ปัจจัยความเสี่ยง
-                      </div>
-                      <div className={"col-span-1 " + table_css}>โอกาส</div>
-                      <div className={"col-span-1 " + table_css}>ผลกระทบ</div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความรุนแรงของความเสี่ยงระดับองค์กร
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        หน่วยงานรับผิดชอบ
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        ความเสี่ยงเหลืออยู่ (Residual Risk)
-                      </div>
+                      {headerSectionWRes}
 
                       <div className={"col-span-9 border border-black px-2"}>
                         1. ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายในที่ควบคุมได้
@@ -375,6 +446,7 @@ export default function Factor2022() {
                         <select
                           id="SIC1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Chance}
                           onChange={() =>
                             setSIC1Chance(
                               document.getElementById("SIC1Chance").value
@@ -393,6 +465,7 @@ export default function Factor2022() {
                         <select
                           id="SIC1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Effect}
                           onChange={() =>
                             setSIC1Effect(
                               document.getElementById("SIC1Effect").value
@@ -429,6 +502,7 @@ export default function Factor2022() {
                         <select
                           id="SEU1Chance"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SEU1Chance}
                           onChange={() =>
                             setSEU1Chance(
                               document.getElementById("SEU1Chance").value
@@ -447,6 +521,7 @@ export default function Factor2022() {
                         <select
                           id="SEU1Effect"
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SEU1Effect}
                           onChange={() =>
                             setSEU1Effect(
                               document.getElementById("SEU1Effect").value
@@ -474,7 +549,73 @@ export default function Factor2022() {
               </div>
             )}
 
-            {year === "2567" || year === "2566" ? (
+            {year === "2568" && (
+              <div className="overflow-x-auto w-screen sm:w-full px-2 sm:p-0">
+                <section>
+                  <div className="flex sm:justify-center">
+                    <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
+                      {headerSectionWRes}
+                      
+                      <div className={"col-span-9 border border-black px-2"}>
+                        1. ความเสี่ยงด้านการดำเนินงานต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้ (Operational External Uncontrollable Risk: OEU)
+                      </div>
+
+                      <div className={"col-span-1 " + table_css}>OEU1</div>
+                      <div className={"col-span-3 " + table_css}>
+                        ความมั่นคงของโครงข่ายทางหลวงพิเศษระหว่างเมืองเมื่อเกิดเหตุฉุกเฉิน
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="OEU168Chance"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU168Chance}
+                          onChange={() =>
+                            setOEU168Chance(
+                              document.getElementById("OEU168Chance").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุ โอกาส</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="OEU168Effect"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={OEU168Effect}
+                          onChange={() =>
+                            setOEU168Effect(
+                              document.getElementById("OEU168Effect").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุความเสี่ยง</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 text-center " + table_css}>
+                        {OEU168Chance * OEU168Effect}
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        แขวงทางหลวงพิเศษระหว่างเมือง
+                      </div>
+                      <div className={"col-span-1 " + table_css}>ใช่</div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            )}
+
+            {year === "2567" || year === "2566" || year === "2568" ? (
               <div className="flex justify-end my-4">
                 <button
                   id="savaButton"

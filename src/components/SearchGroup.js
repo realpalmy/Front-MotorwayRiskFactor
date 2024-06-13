@@ -59,6 +59,7 @@ export default function SearchGroup() {
                     <option value="">เลือกทั้งหมด</option>
                     <option value="2566">ปี 2566</option>
                     <option value="2567">ปี 2567</option>
+                    <option value="2568">ปี 2568</option>
                   </select>
                 </div>
                 <div className="col-span-2">

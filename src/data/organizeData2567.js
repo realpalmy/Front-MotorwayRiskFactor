@@ -1,7 +1,7 @@
 export const organizeData2567 = [
     {
         section: 1,
-        sectionName: "ปัจจัยเสี่ยงด้านกลยุทธ์ (Strategic Risk)",
+        sectionName: "ปัจจัยเสี่ยงด้านกลยุทธ์ (Strategic Risk) [2]",
         listData: [
           {
             year: 2567,
@@ -23,7 +23,7 @@ export const organizeData2567 = [
     },
     {
       section: 2,
-      sectionName: "ปัจจัยเสี่ยงด้านการดำเนินงาน (Operational Risk)",
+      sectionName: "ปัจจัยเสี่ยงด้านการดำเนินงาน (Operational Risk) [8]",
       listData: [
         {
           year: 2567,
@@ -51,7 +51,7 @@ export const organizeData2567 = [
     },
     {
       section: 3,
-      sectionName: "ปัจจัยเสี่ยงด้านกฎหมาย (Compliance Risk)",
+      sectionName: "ปัจจัยเสี่ยงด้านกฎหมาย (Compliance Risk) [1]",
       listData: [
         {
           year: 2567,
