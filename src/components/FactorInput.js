@@ -603,7 +603,7 @@ export default function Factors() {
                         </select>
                       </div>
                       <div className={"col-span-1 text-center " + table_css}>
-                        {SIC1Chance * SIC1Effect}
+                        {OEU168Chance * OEU168Effect}
                       </div>
                       <div className={"col-span-1 " + table_css}>
                         แขวงทางหลวงพิเศษระหว่างเมือง
