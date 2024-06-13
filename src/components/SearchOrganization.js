@@ -1,6 +1,7 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import Table from "../components/Table";
 import TableIndicator from "../components/TableIndicator";
+import { organizeData2568 } from "../data/organizeData2568"
 import { organizeData2567 } from "../data/organizeData2567"
 import { organizeData2566 } from "../data/organizeData2566"
 
@@ -14,7 +15,20 @@ export default function SearchGroup() {
     setYear(year)
   };
 
-  const organizeData = year === '2566' ? organizeData2566 : year === '2567' ? organizeData2567 : '';
+  const yearData = (year) => {
+    if(year === '2566') 
+      return organizeData2566
+    else if (year === '2567') 
+      return organizeData2567
+    else if (year === '2568') 
+      return organizeData2568
+    else
+      return '';
+  }
+
+  // const organizeData = year === '2566' ? organizeData2566 : year === '2567' ? organizeData2567 : '';
+  const organizeData = yearData(year);
+  
   const riskFactorsArray = [];
   if(organizeData !== '') {
     organizeData.forEach((dataSection) => {
@@ -72,6 +86,7 @@ export default function SearchGroup() {
                     <option value="">ระบุ ปี</option>
                     <option value="2566">ปี 2566</option>
                     <option value="2567">ปี 2567</option>
+                    <option value="2568">ปี 2568</option>
                   </select>
                 </div>
                 <div className="grid content-end col-span-2 md:col-span-1">
