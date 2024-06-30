@@ -10,7 +10,7 @@ const Tabs = ({ children }) => {
 
   return (
     <div className="mx-auto">
-      <div className="flex border-b border-gray-300 overflow-x-auto hover:overflow-scroll">
+      <div className="flex border-b border-gray-300 overflow-x-auto">
         {children.map(child => (
           <button
             key={child.props.label}
@@ -19,7 +19,7 @@ const Tabs = ({ children }) => {
             } flex flex-1 font-medium p-4 items-center justify-center gap-1 min-w-fit whitespace-nowrap`}
             onClick={e => handleClick(e, child.props.label)}
           >
-            <span class="material-symbols-outlined">{child.props.icon}</span>
+            <span className="material-symbols-outlined">{child.props.icon}</span>
             <span className={`${activeTab === child.props.label ? '' : 'hidden sm:inline' }`}>{child.props.label}</span>
           </button>
         ))}
