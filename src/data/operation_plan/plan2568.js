@@ -14,12 +14,12 @@ export const plan2568 = [
         budget: "ไม่มีงบประมาณ",
         residualRisk: {
             before: {
-                l: 0,
-                i: 0
+                l: 4,
+                i: 3
             },
             organization : {
-                l: 0,
-                i: 0
+                l: 3,
+                i: 3
             }
         }
     },

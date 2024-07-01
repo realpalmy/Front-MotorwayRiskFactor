@@ -1,13 +1,13 @@
-import { Fragment, useState, useContext, useEffect } from "react";
+import { Fragment, useState } from "react";
 import { PlanTable, ResidualRisk } from "./OperationPlanTable";
 import { plan2566 } from "../data/operation_plan/plan2566";
 import { plan2567 } from "../data/operation_plan/plan2567";
 import { plan2568 } from "../data/operation_plan/plan2568";
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 
 export default function SearchOrganization() {
 
   const currentYear = new Date().getFullYear() + 543;
-  console.log(currentYear)
   const yearData = (year) => {
     if(year === '2566') 
       return plan2566
@@ -82,13 +82,18 @@ export default function SearchOrganization() {
                 </div>
             
                 {operationDataSet?.length > 0 && operationDataSet.map((operationData) => 
-                  <div key={operationData.title} className="flex-col border mt-4 p-3 sm:p-5 rounded">
-                    <h3 className="font-semibold text-indigo-500">{operationData.title}</h3>
-                    <PlanTable operationData={operationData}></PlanTable>
+                  <Disclosure key={operationData.title} as="div" className="flex-col border mt-4 p-3 sm:p-5 rounded" defaultOpen={true}>
+                    <DisclosureButton className="group flex w-full text-start justify-between text-indigo-500">
+                      <h3 className="collapse-title font-semibold">{operationData.title}</h3>
+                      <span className="material-symbols-outlined group-data-[open]:rotate-180">keyboard_arrow_down</span>
+                    </DisclosureButton>
+                    <DisclosurePanel>
+                      <PlanTable operationData={operationData}></PlanTable>
 
-                    <p className="my-4 font-semibold">การพิจารณาระดับความเสี่ยงที่ยอมรับได้ของความเสี่ยงที่เหลืออยู่ (Residual Risk) ขององค์กร</p>
-                    <ResidualRisk riskDataset={operationData.residualRisk}></ResidualRisk>
-                </div>
+                      <p className="my-4 font-semibold">การพิจารณาระดับความเสี่ยงที่ยอมรับได้ของความเสี่ยงที่เหลืออยู่ (Residual Risk) ขององค์กร</p>
+                      <ResidualRisk riskDataset={operationData.residualRisk}></ResidualRisk>
+                    </DisclosurePanel>
+                  </Disclosure>
                 )}
             </Fragment>
             }

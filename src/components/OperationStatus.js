@@ -1,6 +1,5 @@
 import { Fragment, useState, useEffect } from "react";
 import axios from "axios";
-import { Dialog, Transition } from '@headlessui/react'
 import StatusModal from "./StatusModal";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,10 +33,12 @@ export default function OperationStatus() {
   } */
 
   const [operationStatusSet, setOperationStatusSet] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   /* Database */
   const path = process.env.REACT_APP_API_URL;
   const fetchStatusData = async (year) => {
     try {
+      setIsLoading(true);
       const searchPath = (year && year !== "") ? `status/${year}` : "status";
       const riskFactorsData = await axios.get(path + searchPath);
       const data = riskFactorsData.data;
@@ -52,6 +53,7 @@ export default function OperationStatus() {
       }, {});
     
       setOperationStatusSet(groupedByYear)
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +64,7 @@ export default function OperationStatus() {
   }, []);
 
   const updateStatus = (year, plan_no, status) => {
-    console.log(year, plan_no, status)
+    //console.log(year, plan_no, status)
     try {
       axios.put(path + `status/${year}/${plan_no}`, {status})
         .then(response => {
@@ -203,7 +205,25 @@ export default function OperationStatus() {
               </div>
             </form>
 
-            {operationStatusSet && 
+
+            {isLoading &&
+              <div className="py-3 sm:py-5">
+                <div className="animate-pulse flex space-x-4">
+                  <div className="flex-1 space-y-6 py-1"> 
+                    <div className="h-2 bg-slate-400 rounded"></div>
+                    <div className="space-y-3">
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="h-2 bg-slate-400 rounded col-span-2"></div>
+                        <div className="h-2 bg-slate-400 rounded col-span-1"></div>
+                      </div>
+                      <div className="h-2 bg-slate-400 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+
+            {operationStatusSet && !isLoading &&
               <Fragment>
                 {Object.entries(operationStatusSet).map(([key, operationStatus]) => 
                   <div key={key} className="flex-col border my-4 p-3 sm:p-5 rounded">
@@ -273,8 +293,7 @@ export default function OperationStatus() {
                       </div>
                   </div>
                 )}
-              
-            </Fragment>
+              </Fragment>
             }
             
           </div>
