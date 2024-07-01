@@ -45,7 +45,7 @@ const PlanTable = ({ operationData }) => {
                                 กิจกรรมการจัดการความเสี่ยง (3)
                             </td>
                             <td className={tdata_css + "whitespace-pre-wrap"}>
-                                <ul className={operationData.activity?.length > 1 ? "list-disc" : "list-none"}>
+                                <ul className={operationData.activity?.length > 1 ? "list-disc ps-4" : "list-none"}>
                                     {operationData.activity?.map((list, i) => <li key={i} className="whitespace-pre-line">{list}</li>)}
                                 </ul>
                             </td>
@@ -55,7 +55,7 @@ const PlanTable = ({ operationData }) => {
                                 ผลที่คาดว่าจะได้รับ (4)
                             </td>
                             <td className={tdata_css + "whitespace-pre-line"}>
-                                <ul className={operationData.result?.length > 1 ? "list-disc" : "list-none"}>
+                                <ul className={operationData.result?.length > 1 ? "list-disc ps-4" : "list-none"}>
                                     {operationData.result?.map((list, i) => <li key={i} className="whitespace-pre-line">{list}</li>)}
                                 </ul>
                             </td>

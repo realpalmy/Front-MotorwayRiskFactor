@@ -52,7 +52,8 @@ export default function StatusModal({isOpen, onConfirm, onCancel, message}) {
                     </button>
                     <button
                       type="button"
-                      className={`inline-flex justify-center rounded-md border border-transparent bg-${message?.confirm_color}-100 px-4 py-2 text-sm font-medium text-${message?.confirm_color}-900 hover:bg-${message?.confirm_color}-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+                      className={`inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${message?.confirm_color === "red" ? 'bg-red-100 text-red-900 hover:bg-red-200 focus-visible:ring-red-500' : 'bg-green-100 text-green-900 hover:bg-green-200 focus-visible:ring-green-500'}`}
+                      // className={`inline-flex justify-center rounded-md border border-transparent bg-${message?.confirm_color}-100 px-4 py-2 text-sm font-medium text-${message?.confirm_color}-900 hover:bg-${message?.confirm_color}-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
                       onClick={onConfirm}
                     >
                       {message?.confirm}

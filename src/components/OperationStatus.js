@@ -2,6 +2,9 @@ import { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { Dialog, Transition } from '@headlessui/react'
 import StatusModal from "./StatusModal";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function OperationStatus() {
 
@@ -65,8 +68,10 @@ export default function OperationStatus() {
         .then(response => {
           console.log(response); 
           fetchStatusData(searchYear)
+          saveSuccess();
         })
         .catch(error => {
+          saveError();
           console.error('Error updating data:', error.message); 
         });
     } catch (error) {
@@ -114,7 +119,7 @@ export default function OperationStatus() {
     content : "ต้องการละทิ้งการแก้ไขหรือไม่",
     cancel : "ยกเลิก",
     confirm: "ละทิ้งการแก้ไข",
-    confirm_color: "blue"
+    confirm_color: "red"
   }
   const saveMessage = {
     title : "ยืนยันการบันทึก",
@@ -154,8 +159,13 @@ export default function OperationStatus() {
     }
   };
 
+  const saveSuccess = () => toast.success("บันทึกสถานะการดำเนินงานของแผนปฏิบัติการสำเร็จ");
+  const saveError = () => toast.error("บันทึกสถานะการดำเนินงานของแผนปฏิบัติการไม่สำเร็จ");
+
   return (
     <Fragment>
+      <ToastContainer position="top-center" />
+
       <div className="container mx-auto my-6 px-2">
         <div className="p-2 sm:p-0">
           <h1 className="text-xl font-semibold text-center sm:text-start sm:pb-1">

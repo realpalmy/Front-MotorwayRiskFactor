@@ -6,16 +6,8 @@ import { plan2568 } from "../data/operation_plan/plan2568";
 
 export default function SearchOrganization() {
 
-  const [year, setYear] = useState("")
-  const [operationDataSet, setOperationDataSet] = useState([]);
-
-  const searchForm = (event) => {
-    event.preventDefault();
-    const year = document.getElementById("year").value;
-    setYear(year)
-    setOperationDataSet(yearData(year))
-  };
-
+  const currentYear = new Date().getFullYear() + 543;
+  console.log(currentYear)
   const yearData = (year) => {
     if(year === '2566') 
       return plan2566
@@ -26,6 +18,18 @@ export default function SearchOrganization() {
     else
       return '';
   }
+  
+  const [year, setYear] = useState(currentYear.toString())
+  const [operationDataSet, setOperationDataSet] = useState(yearData(year));
+
+  const searchForm = (event) => {
+    event.preventDefault();
+    const year = document.getElementById("year").value;
+    setYear(year)
+    setOperationDataSet(yearData(year))
+  };
+
+  
 
 
   return (
@@ -48,6 +52,7 @@ export default function SearchOrganization() {
                   </label>
                   <select
                     id="year"
+                    defaultValue={year}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <option value="">ระบุ ปี</option>
