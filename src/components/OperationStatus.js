@@ -232,22 +232,22 @@ export default function OperationStatus() {
                       </div>
                 
                       <div className="flex flex-col">
-                          <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                  <div className="overflow-hidden border-b border-gray-200">
-                                      <table className="min-w-full divide-y divide-gray-200">
+                          <div className="sm:-mx-6 lg:-mx-8">
+                              <div className="py-2 align-middle inline-block w-full sm:px-6 lg:px-8">
+                                  <div className="overflow-x-auto w-full border-b border-gray-200">
+                                      <table className="table-fixed divide-y divide-gray-200">
                                           <thead className="bg-gray-50">
                                               <tr>
-                                                  <th scope="col" className={thead}>
+                                                  <th scope="col" className={'whitespace-nowrap px-2 sm:px-6 py-3 text-sm text-left font-medium text-gray-500 uppercase tracking-wider' + ' sticky left-0 bg-gray-50'}>
                                                       ลำดับ
                                                   </th>
-                                                  <th scope="col" className={thead}>
+                                                  <th scope="col" className={thead + ' min-w-[14rem] w-1/3 '}>
                                                       ชื่อแผนงาน
                                                   </th>
                                                   <th scope="col" className={thead}>
                                                       หน่วยงานรับผิดชอบ
                                                   </th>
-                                                  <th scope="col" className={thead}>
+                                                  <th scope="col" className={thead + ' min-w-[14rem] w-1/3 '}>
                                                       สถานะการดำเนินงาน
                                                   </th>
                                                   <th scope="col" className="relative px-6 py-3">
@@ -258,31 +258,31 @@ export default function OperationStatus() {
                                           <tbody className="bg-white divide-y divide-gray-200">
                                               {operationStatus.map((operation) => 
                                               <tr key={operation.plan_no}>
-                                                      <td className="px-6 py-4 whitespace-nowrap">
-                                                          <div className="flex items-center">
-                                                              <div className="ml-4">
-                                                                  <div className="text-sm font-medium text-gray-900">{operation.plan_no}</div>
-                                                              </div>
-                                                          </div>
-                                                      </td>
-                                                      <td className="px-6 py-4">
-                                                          <div className="text-sm text-gray-900">{operation.operation_name}</div>
-                                                      </td>
-                                                      <td className="px-6 py-4">
-                                                        <div className="text-sm text-gray-900">{operation.responsible_by}</div>
-                                                      </td>
-                                                      <td className="px-6 py-2 text-sm text-gray-900">
-                                                        {(editing && statusOnEdit.year === operation.year && statusOnEdit.plan_no === operation.plan_no) ? 
-                                                          <textarea defaultValue={operation.status} onChange={handleStatusChange} className="w-full resize-y p-1 rounded-md border border-gray-200 text-sm"></textarea>
-                                                        : <span className="whitespace-pre-line">{operation.status}</span> 
-                                                        }
-                                                        </td>
-                                                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        {(editing && statusOnEdit.year === operation.year && statusOnEdit.plan_no === operation.plan_no) ? 
-                                                          <span onClick={() => onSaveStatus(operation.year, operation.plan_no)} className="text-green-600 hover:text-green-900">บันทึก</span> 
-                                                        : <span onClick={() => onEditStatus(operation.year, operation.plan_no, operation.status)} className="text-indigo-600 hover:text-indigo-900">แก้ไข</span>
-                                                        }
-                                                      </td>
+                                                <td className="sticky left-0 bg-white px-2 sm:px-6 py-4 whitespace-nowrap">
+                                                  <div className="flex items-center">
+                                                    <div className="ml-4">
+                                                      <div className="text-sm font-medium text-gray-900">{operation.plan_no}</div>
+                                                    </div>
+                                                  </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                  <div className="text-sm text-gray-900">{operation.operation_name}</div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                  <div className="text-sm text-gray-900">{operation.responsible_by}</div>
+                                                </td>
+                                                <td className="px-6 py-2 text-sm text-gray-900">
+                                                  {(editing && statusOnEdit.year === operation.year && statusOnEdit.plan_no === operation.plan_no) ?
+                                                    <textarea defaultValue={operation.status} onChange={handleStatusChange} className="w-full resize-y p-1 rounded-md border border-gray-200 text-sm"></textarea>
+                                                    : <span className="whitespace-pre-line">{operation.status}</span>
+                                                  }
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                  {(editing && statusOnEdit.year === operation.year && statusOnEdit.plan_no === operation.plan_no) ?
+                                                    <span onClick={() => onSaveStatus(operation.year, operation.plan_no)} className="text-green-600 hover:text-green-900">บันทึก</span>
+                                                    : <span onClick={() => onEditStatus(operation.year, operation.plan_no, operation.status)} className="text-indigo-600 hover:text-indigo-900">แก้ไข</span>
+                                                  }
+                                                </td>
                                               </tr>
                                               )}
                                           </tbody>

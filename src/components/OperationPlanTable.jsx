@@ -28,7 +28,7 @@ const PlanTable = ({ operationData }) => {
                             </td>
                         </tr>
                         <tr>
-                            <td className={"py-4 pe-0 text-gray-800 font-semibold"} colSpan={2}>
+                            <td className={"py-3 pe-0 text-gray-800 font-semibold"} colSpan={2}>
                                 ขั้นตอนการบริหารความเสี่ยง
                             </td>
                         </tr>
