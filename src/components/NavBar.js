@@ -17,7 +17,7 @@ export default function NavBar() {
             <NavLink
               to="/search"
               style={({ isActive }) => ({
-                color: isActive ? "#0ea5e9" : "#9ca3af",
+                color: isActive ? "#A5B4FC" : "#9ca3af",
               })}
               className="font-lg text-gray-400 hover:text-gray-500"
             >
@@ -26,7 +26,7 @@ export default function NavBar() {
             <NavLink
               to="/update"
               style={({ isActive }) => ({
-                color: isActive ? "#0ea5e9" : "#9ca3af",
+                color: isActive ? "#A5B4FC" : "#9ca3af",
               })}
               className="font-lg text-gray-400 hover:text-gray-500"
             >
