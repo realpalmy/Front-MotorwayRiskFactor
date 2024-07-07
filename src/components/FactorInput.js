@@ -1,9 +1,10 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import Table from "./Table";
 import Context from "../Context";
-import Alert from "./Alert";
-import { Transition } from "@headlessui/react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function Factors() {
   const { data, updateData } = useContext(Context);
@@ -28,8 +29,6 @@ export default function Factors() {
 
   const [year, setYear] = useState("2568");
   const [quarter, setQuarter] = useState("");
-
-  const [clickedSave, setClickedSave] = useState(false);
 
   /* Update database */
   const path = process.env.REACT_APP_API_URL;
@@ -160,11 +159,16 @@ export default function Factors() {
         return item;
       });
       if(quarter !== '') {
-        setClickedSave(true);
+        saveSuccess();
+      } else {
+        saveError();
       }
       return newData;
     });
   };
+
+  const saveSuccess = () => toast.success("บันทึกข้อมูลปัจจัยความเสี่ยงสำเร็จ");
+  const saveError = () => toast.error("บันทึกข้อมูลไม่สำเร็จ");
 
   const table_css = "border border-black p-2";
 
@@ -205,18 +209,7 @@ export default function Factors() {
 
   return (
     <Fragment>
-      <Transition
-        className=""
-        show={clickedSave}
-        enter="transition-all ease-in-out duration-500 delay-[200ms]"
-        enterFrom="opacity-0 translate-y-6"
-        enterTo="opacity-100 translate-y-0"
-        leave="transition-all ease-in-out duration-300"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
-        <Alert clickedSave={clickedSave} setClickedSave={setClickedSave} />
-      </Transition>
+      <ToastContainer position="top-center" />
 
       <div className="container mx-auto sm:px-2">
         <div className="flex sm:p-0">

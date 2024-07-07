@@ -127,7 +127,7 @@ export default function Table({ data }) {
                       >
                         {num}
                       </th>
-                      {data.year !== 2566 &&
+                      {data.year === 2567 &&
                         dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
@@ -178,9 +178,10 @@ export default function Table({ data }) {
                               {factors}
                             </td>
                           )
-                        )}
+                        )
+                      }
 
-                      {data.year === 2566 &&
+                      {(data.year === 2566 || data.year === 2568) &&
                         dataArray[num - 1]?.map((factors, index) =>
                           (index + 1 === 1 && num === 5) ||
                           (index + 1 === 2 && num === 4) ||
