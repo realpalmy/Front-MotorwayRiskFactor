@@ -117,7 +117,7 @@ export default function SearchGroup() {
               </div>
 
               {organizeData !== '' && 
-              <div className="overflow-x-auto w-80 sm:w-full overflow-clip sm:p-0">
+              <div className="overflow-x-auto w-100 sm:w-full overflow-clip sm:p-0">
               <section>
                 <div className="flex sm:justify-center">
                   <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
