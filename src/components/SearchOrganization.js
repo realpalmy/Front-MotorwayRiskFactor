@@ -43,22 +43,23 @@ export default function SearchGroup() {
   }
 
   const table_css = " border border-black p-2 ";
+  const table_center_css = " border border-black p-2 text-center ";
   const header = " font-medium  ";
   const section_header = " bg-amber-200 ";
 
   const header_section = (
     <div className={"grid grid-cols-9 col-span-9"}>
       <div className={"col-span-4 " + header + table_css}>ปัจจัยความเสี่ยง</div>
-      <div className={"col-span-1 " + header + table_css}>โอกาส</div>
-      <div className={"col-span-1 " + header + table_css}>ผลกระทบ</div>
-      <div className={"col-span-1 " + header + table_css}>
+      <div className={"col-span-1 " + header + table_center_css}>โอกาส</div>
+      <div className={"col-span-1 " + header + table_center_css}>ผลกระทบ</div>
+      <div className={"col-span-1 " + header + table_center_css}>
         ความรุนแรงของความเสี่ยงระดับองค์กร
       </div>
-      <div className={"col-span-1 " + header + table_css}>
+      <div className={"col-span-1 " + header + table_center_css}>
         หน่วยงานรับผิดชอบ
       </div>
-      <div className={"col-span-1 " + header + table_css}>
-        ความเสี่ยงเหลืออยู่ (Residual Risk)
+      <div className={"col-span-1 " + header + table_center_css}>
+        ความเสี่ยงที่เหลืออยู่ (Residual Risks)
       </div>
     </div>
   );
@@ -106,7 +107,7 @@ export default function SearchGroup() {
             <div className="flex-col border my-4 p-5 rounded">
               <div className="flex flex-col sm:flex-row mb-3 sm:justify-between">
                 <div className="flex w-full">
-                  <h2 className="font-semibold mb-3">ผลการประเมินระดับความเสี่ยงระดับองค์กร ปี {year}</h2>
+                  <h2 className="font-semibold mb-3">แผนภาพความเสี่ยง (Risk Profile) และตารางปัจจัยความเสี่ยง</h2>
                 </div>
                 <TableIndicator />
               </div>
@@ -139,11 +140,11 @@ export default function SearchGroup() {
                                 <div key={riskFactor.name} className={`grid grid-cols-9 col-span-9 ${riskFactor.color}`}>
                                   <div className={"col-span-1 " + table_css}>{riskFactor.name}</div>
                                   <div className={"col-span-3 " + table_css}>{riskFactor.description}</div>
-                                  <div className={"col-span-1 text-center" + table_css}>{riskFactor.l}</div>
-                                  <div className={"col-span-1 text-center" + table_css}>{riskFactor.i}</div>
-                                  <div className={"col-span-1 text-center " + table_css}>{riskFactor.i * riskFactor.l}</div>
-                                  <div className={"col-span-1 " + table_css}>{riskFactor.responseBy === '' ? '-' : riskFactor.responseBy}</div>
-                                  <div className={"col-span-1 " + table_css}>{riskFactor.risk}</div>
+                                  <div className={"col-span-1 " + table_center_css}>{riskFactor.l}</div>
+                                  <div className={"col-span-1 " + table_center_css}>{riskFactor.i}</div>
+                                  <div className={"col-span-1 " + table_center_css}>{riskFactor.i * riskFactor.l}</div>
+                                  <div className={"col-span-1 " + table_center_css}>{riskFactor.responseBy === '' ? '-' : riskFactor.responseBy}</div>
+                                  <div className={"col-span-1 " + table_center_css}>{riskFactor.risk}</div>
                                 </div>
                               )
                             })}    
