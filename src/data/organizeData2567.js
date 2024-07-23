@@ -6,17 +6,10 @@ export const organizeData2567 = [
           {
             year: 2567,
             list: 1,
-            listName: "ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายในที่ควบคุมได้ (Strategic Internal Controllable Risk: SIC)",
-            riskData: [
-              { name: "SIC1", description: "ความล่าช้าในขั้นตอนการเสนอโครงการร่วมลงทุน", l: 3, i: 4, responseBy: "ฝ่ายบริหารการร่วมลงทุน", risk: "ใช่", color: " bg-amber-100 "},
-            ],
-          },
-          {
-            year: 2567,
-            list: 2,
             listName: "ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้ (Strategic External Uncontrollable Risk: SEU)",
             riskData: [
-              { name: "SEU1", description: "ความล่าช้าในขั้นตอนการคัดเลือกเอกชนผู้ร่วมลงทุน", l: 3, i: 4, responseBy: "ฝ่ายบริหารการร่วมลงทุน", risk: "ใช่", color: " bg-amber-100 "},
+              { name: "SEU1", description: "ความล่าช้าในขั้นตอนการเสนอโครงการร่วมลงทุน", l: 3, i: 4, responseBy: "ฝ่ายบริหารการร่วมลงทุน", risk: "ใช่", color: " bg-amber-100 "},
+              { name: "SEU2", description: "ความล่าช้าในขั้นตอนการคัดเลือกเอกชนผู้ร่วมลงทุน", l: 3, i: 4, responseBy: "ฝ่ายบริหารการร่วมลงทุน", risk: "ใช่", color: " bg-amber-100 "},
             ],
           }
         ]
