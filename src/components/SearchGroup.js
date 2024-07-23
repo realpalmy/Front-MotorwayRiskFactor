@@ -7,10 +7,12 @@ import TableIndicator from "../components/TableIndicator"
 export default function SearchGroup() {
   const { data } = useContext(Context);
 
+  const [year, setYear] = useState();
   const [searchData, setSearchData] = useState(data);
 
   const searchForm = (event) => {
     event.preventDefault();
+    setYear(document.getElementById("year").value)
     const year = document.getElementById("year").value;
     const quarter = document.getElementById("quarter").value;
 
@@ -95,7 +97,7 @@ export default function SearchGroup() {
             <div className="flex-col border my-4 p-5 rounded">
               <div className="flex flex-col sm:flex-row mb-3 sm:justify-between">
                 <div className="flex w-full">
-                  <h2 className="font-semibold mb-3">ตารางปัจจัยความเสี่ยง</h2>
+                  <h2 className="font-semibold mb-3">ผลการประเมินระดับความเสี่ยงระดับองค์กรปี {year || '2566, 2567, 2568'}</h2>
                 </div>
 
                 <TableIndicator />
