@@ -14,10 +14,10 @@ export default function Factors() {
   const [OEU168Effect, setOEU168Effect] = useState(0);
 
   //2567
+  const [SIC1Chance, setSIC1Chance] = useState(0);
+  const [SIC1Effect, setSIC1Effect] = useState(0);
   const [SEU1Chance, setSEU1Chance] = useState(0);
   const [SEU1Effect, setSEU1Effect] = useState(0);
-  const [SEU2Chance, setSEU2Chance] = useState(0);
-  const [SEU2Effect, setSEU2Effect] = useState(0);
 
   //2566
   const [OEU1Chance, setOEU1Chance] = useState(0);
@@ -58,12 +58,12 @@ export default function Factors() {
         setOEU168Chance(OEU1?.l)
         setOEU168Effect(OEU1?.i)
       } else if (year === "2567") {
+        const SIC1 = factors.find((factor) => factor?.name === "SIC1")
+        setSIC1Chance(SIC1?.l)
+        setSIC1Effect(SIC1?.i)
         const SEU1 = factors.find((factor) => factor?.name === "SEU1")
         setSEU1Chance(SEU1?.l)
         setSEU1Effect(SEU1?.i)
-        const SEU2 = factors.find((factor) => factor?.name === "SEU2")
-        setSEU2Chance(SEU2?.l)
-        setSEU2Effect(SEU2?.i)
       } else if (year === "2566") {
         const OEU1 = factors.find((factor) => factor?.name === "OEU1")
         setOEU1Chance(OEU1?.l)
@@ -105,16 +105,16 @@ export default function Factors() {
           //67
           if (year === "2567") {
             const newRiskData = item.riskData?.map((riskItem) => {
+              if (riskItem.name === "SIC1") {
+                  return {
+                    ...riskItem,
+                    ...{ l: parseInt(SIC1Chance), i: parseInt(SIC1Effect) },
+                  };
+              }
               if (riskItem.name === "SEU1") {
                 return {
                   ...riskItem,
                   ...{ l: parseInt(SEU1Chance), i: parseInt(SEU1Effect) },
-                };
-              }
-              if (riskItem.name === "SEU2") {
-                return {
-                  ...riskItem,
-                  ...{ l: parseInt(SEU2Chance), i: parseInt(SEU2Effect) },
                 };
               }
               return riskItem;
@@ -428,15 +428,72 @@ export default function Factors() {
                     <div className="min-w-[60rem] sm:min-w-full grid grid-cols-9 align border border-black">
                       {headerSectionWRes}
 
+                      {/* Topic 1 */}
                       <div className={"col-span-9 border border-black px-2"}>
-                        1.
+                        1. ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายในที่ควบคุมได้
+                        (Strategic Internal Controllable Risk: SIC)
+                      </div>
+
+                      <div className={"col-span-1 " + table_css}>SIC1</div>
+                      <div className={"col-span-3 " + table_css}>
+                        ความล่าช้าในขั้นตอนการเสนอโครงการร่วมลงทุน
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="SIC1Chance"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Chance}
+                          onChange={() =>
+                            setSIC1Chance(
+                              document.getElementById("SIC1Chance").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุ โอกาส</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 " + table_css}>
+                        <select
+                          id="SIC1Effect"
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                          value={SIC1Effect}
+                          onChange={() =>
+                            setSIC1Effect(
+                              document.getElementById("SIC1Effect").value
+                            )
+                          }
+                        >
+                          <option value="0">ระบุความเสี่ยง</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                      <div className={"col-span-1 text-center " + table_center_css}>
+                        {SIC1Chance * SIC1Effect}
+                      </div>
+                      <div className={"col-span-1 " + table_center_css}>
+                        ฝ่ายบริหารการร่วมลงทุน
+                      </div>
+                      <div className={"col-span-1 " + table_center_css}>ใช่</div>
+
+                      {/* Topic 2 */}
+                      <div className={"col-span-9 border border-black px-2"}>
+                        2.
                         ความเสี่ยงด้านกลยุทธ์ต่อปัจจัยเสี่ยงภายนอกที่ควบคุมไม่ได้
                         (Strategic External Uncontrollable Risk: SEU)
                       </div>
 
                       <div className={"col-span-1 " + table_css}>SEU1</div>
                       <div className={"col-span-3 " + table_css}>
-                        ความล่าช้าในขั้นตอนการเสนอโครงการร่วมลงทุน
+                        ความล่าช้าในขั้นตอนการคัดเลือกเอกชนผู้ร่วมลงทุน
                       </div>
                       <div className={"col-span-1 " + table_css}>
                         <select
@@ -478,56 +535,6 @@ export default function Factors() {
                       </div>
                       <div className={"col-span-1 text-center " + table_center_css}>
                         {SEU1Chance * SEU1Effect}
-                      </div>
-                      <div className={"col-span-1 " + table_center_css}>
-                        ฝ่ายบริหารการร่วมลงทุน
-                      </div>
-                      <div className={"col-span-1 " + table_center_css}>ใช่</div>
-
-                      <div className={"col-span-1 " + table_css}>SEU2</div>
-                      <div className={"col-span-3 " + table_css}>
-                        ความล่าช้าในขั้นตอนการคัดเลือกเอกชนผู้ร่วมลงทุน
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        <select
-                          id="SEU2Chance"
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          value={SEU2Chance}
-                          onChange={() =>
-                            setSEU2Chance(
-                              document.getElementById("SEU2Chance").value
-                            )
-                          }
-                        >
-                          <option value="0">ระบุ โอกาส</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                      <div className={"col-span-1 " + table_css}>
-                        <select
-                          id="SEU2Effect"
-                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                          value={SEU2Effect}
-                          onChange={() =>
-                            setSEU2Effect(
-                              document.getElementById("SEU2Effect").value
-                            )
-                          }
-                        >
-                          <option value="0">ระบุ ความเสี่ยง</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                        </select>
-                      </div>
-                      <div className={"col-span-1 text-center " + table_center_css}>
-                        {SEU2Chance * SEU2Effect}
                       </div>
                       <div className={"col-span-1 " + table_center_css}>
                         ฝ่ายบริหารการร่วมลงทุน
