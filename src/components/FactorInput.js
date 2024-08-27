@@ -482,7 +482,7 @@ export default function Factors() {
                       <div className={"col-span-1 " + table_center_css}>
                         ฝ่ายบริหารการร่วมลงทุน
                       </div>
-                      <div className={"col-span-1 " + table_css}>ใช่</div>
+                      <div className={"col-span-1 " + table_center_css}>ใช่</div>
 
                       {/* Topic 2 */}
                       <div className={"col-span-9 border border-black px-2"}>
