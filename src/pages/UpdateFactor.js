@@ -6,7 +6,8 @@ export default function UpdateFactor() {
     return (
         <Fragment>
           <NavBar />
-          <Factors />
+          {/* Remove update function */}
+          {/* <Factors /> */}
         </Fragment>
       );
 }

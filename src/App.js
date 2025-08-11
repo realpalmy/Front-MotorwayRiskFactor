@@ -9,6 +9,7 @@ import UpdateFactor from "./pages/UpdateFactor";
 
 function App() {
 
+  /* Remove update function 
   const path = process.env.REACT_APP_API_URL;
   const [data, setData] = useState([]);
   const updateData = (newData) => {
@@ -37,17 +38,18 @@ function App() {
   if (isLoading) {
     return <p>Loading...</p>;
   }
+  */
 
   return (
     <Fragment>
-      <Context.Provider value={{ data, updateData }}>
+      {/* <Context.Provider value={{ data, updateData }}> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
-          <Route path="/update" element={<UpdateFactor />} />
+          {/* <Route path="/update" element={<UpdateFactor />} /> */}
           <Route path="*" element={<Search />}/>
         </Routes>
-      </Context.Provider>
+      {/* </Context.Provider> */}
     </Fragment>
   );
 }

@@ -2,13 +2,16 @@ import { Fragment, useState, useContext } from "react";
 import Table from "../components/Table";
 import Context from "../Context";
 import TableIndicator from "../components/TableIndicator"
+import { remain_risk } from "../data/remaining_risk/remain_risk";
 
 
 export default function SearchGroup() {
-  const { data } = useContext(Context);
+  /* Remove update function
+  replace data with remain_risk
+  const { data } = useContext(Context);*/
 
   const [year, setYear] = useState();
-  const [searchData, setSearchData] = useState(data);
+  const [searchData, setSearchData] = useState(remain_risk);
 
   const searchForm = (event) => {
     event.preventDefault();
@@ -16,12 +19,10 @@ export default function SearchGroup() {
     const year = document.getElementById("year").value;
     const quarter = document.getElementById("quarter").value;
 
-    //console.log(data);
-
     setSearchData(() => {
       let searchFactor = [];
       if (year !== "" || quarter !== "") {
-        searchFactor = data?.filter((risk) => {
+        searchFactor = remain_risk?.filter((risk) => {
           if (year !== "" && quarter !== "") {
             return risk.year == year && risk.quarter == quarter;
           } else if (year !== "") {
@@ -31,7 +32,7 @@ export default function SearchGroup() {
           }
         });
       } else {
-        searchFactor = data;
+        searchFactor = remain_risk;
       }
       return searchFactor;
     });

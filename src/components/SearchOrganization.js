@@ -1,9 +1,9 @@
 import { Fragment, useState, useContext, useEffect } from "react";
 import Table from "../components/Table";
 import TableIndicator from "../components/TableIndicator";
-import { organizeData2568 } from "../data/organizeData2568"
-import { organizeData2567 } from "../data/organizeData2567"
-import { organizeData2566 } from "../data/organizeData2566"
+import { organizeData2568 } from "../data/organization_risk/organizeData2568"
+import { organizeData2567 } from "../data/organization_risk/organizeData2567"
+import { organizeData2566 } from "../data/organization_risk/organizeData2566"
 
 export default function SearchGroup() {
 

@@ -14,7 +14,8 @@ export default function NavBar() {
             Management : RM)
           </Link>
           <div className="flex items-center gap-5 mt-5 md:justify-end md:mt-0 md:pl-5 sm:text-base">
-            <NavLink
+            {/* Remove update function */}
+            {/* <NavLink
               to="/search"
               style={({ isActive }) => ({
                 color: isActive ? "#A5B4FC" : "#9ca3af",
@@ -31,7 +32,7 @@ export default function NavBar() {
               className="font-lg text-gray-400 hover:text-gray-500"
             >
               กรอกข้อมูลปัจจัยความเสี่ยง
-            </NavLink>
+            </NavLink> */}
           </div>
         </nav>
       </header>

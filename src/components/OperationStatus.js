@@ -3,19 +3,13 @@ import axios from "axios";
 import StatusModal from "./StatusModal";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { operation_status } from "../data/opertion_status/operation_status_110825";
 
 
 export default function OperationStatus() {
 
   const thead = " whitespace-nowrap px-6 py-3 text-sm text-left font-medium text-gray-500 uppercase tracking-wider"
 
-  const [searchYear, setSearchYear] = useState("");
-  const searchForm = (event) => {
-    event.preventDefault();
-    const year = document.getElementById("year").value;
-    setSearchYear(year)
-    fetchStatusData(year)
-  };
 
   /* const mockData = {
     2566 : [
@@ -32,9 +26,25 @@ export default function OperationStatus() {
     ]
   } */
 
+  const [operationStatusSet, setOperationStatusSet] = useState(operation_status);
+
+  const searchForm = (event) => {
+    event.preventDefault();
+    const year = document.getElementById("year").value;
+    if(year !== "") {
+      setOperationStatusSet({[year]: operation_status[year]})
+    } else {
+      setOperationStatusSet(operation_status)
+    }
+  };
+
+
+  /*
+  //Remove update function
+  
   const [operationStatusSet, setOperationStatusSet] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  /* Database */
+  //Database 
   const path = process.env.REACT_APP_API_URL;
   const fetchStatusData = async (year) => {
     try {
@@ -80,7 +90,7 @@ export default function OperationStatus() {
       console.error(error);
     }
   }
-  /* Database */
+  //Database 
 
   const [statusChange, setStatusChange] = useState("");
   const [statusOnEdit, setStatusOnEdit] = useState({year: 0 , plan_no: 0});
@@ -163,6 +173,7 @@ export default function OperationStatus() {
 
   const saveSuccess = () => toast.success("บันทึกสถานะการดำเนินงานของแผนปฏิบัติการสำเร็จ");
   const saveError = () => toast.error("บันทึกสถานะการดำเนินงานของแผนปฏิบัติการไม่สำเร็จ");
+  */
 
   return (
     <Fragment>
@@ -206,7 +217,7 @@ export default function OperationStatus() {
             </form>
 
 
-            {isLoading &&
+            {/* {isLoading &&
               <div className="py-3 sm:py-5">
                 <div className="animate-pulse flex space-x-4">
                   <div className="flex-1 space-y-6 py-1"> 
@@ -221,9 +232,9 @@ export default function OperationStatus() {
                   </div>
                 </div>
               </div>
-            }
+            } */}
 
-            {operationStatusSet && !isLoading &&
+            {operationStatusSet &&
               <Fragment>
                 {Object.entries(operationStatusSet).map(([key, operationStatus]) => 
                   <div key={key} className="flex-col border my-4 p-3 sm:p-5 rounded">
@@ -241,7 +252,7 @@ export default function OperationStatus() {
                                                   <th scope="col" className={'whitespace-nowrap px-2 sm:px-6 py-3 text-sm text-left font-medium text-gray-500 uppercase tracking-wider' + ' sticky left-0 bg-gray-50'}>
                                                       ลำดับ
                                                   </th>
-                                                  <th scope="col" className={thead + ' min-w-[14rem] w-1/3 '}>
+                                                  <th scope="col" className={thead + ' min-w-[20rem] w-1/3 '}>
                                                       ชื่อแผนงาน
                                                   </th>
                                                   <th scope="col" className={thead}>
@@ -250,10 +261,7 @@ export default function OperationStatus() {
                                                   <th scope="col" className={thead + ' min-w-[14rem] w-1/3 '}>
                                                       สถานะการดำเนินงาน
                                                   </th>
-                                                  <th scope="col" className="relative px-6 py-3">
-                                                      <span className="sr-only">Edit</span>
-                                                  </th>
-                                              </tr>
+                                                                                                </tr>
                                           </thead>
                                           <tbody className="bg-white divide-y divide-gray-200">
                                               {operationStatus.map((operation) => 
@@ -271,7 +279,11 @@ export default function OperationStatus() {
                                                 <td className="px-6 py-4">
                                                   <div className="text-sm text-gray-900">{operation.responsible_by}</div>
                                                 </td>
+                                                {/* No Edit box */}
                                                 <td className="px-6 py-2 text-sm text-gray-900">
+                                                  <span className="whitespace-pre-line">{operation.status}</span>
+                                                </td>
+                                                {/* <td className="px-6 py-2 text-sm text-gray-900">
                                                   {(editing && statusOnEdit.year === operation.year && statusOnEdit.plan_no === operation.plan_no) ?
                                                     <textarea defaultValue={operation.status} onChange={handleStatusChange} className="w-full resize-y p-1 rounded-md border border-gray-200 text-sm"></textarea>
                                                     : <span className="whitespace-pre-line">{operation.status}</span>
@@ -282,7 +294,7 @@ export default function OperationStatus() {
                                                     <span onClick={() => onSaveStatus(operation.year, operation.plan_no)} className="text-green-600 hover:text-green-900">บันทึก</span>
                                                     : <span onClick={() => onEditStatus(operation.year, operation.plan_no, operation.status)} className="text-indigo-600 hover:text-indigo-900">แก้ไข</span>
                                                   }
-                                                </td>
+                                                </td> */}
                                               </tr>
                                               )}
                                           </tbody>
@@ -300,8 +312,8 @@ export default function OperationStatus() {
         </div>
       </div>
 
-      <StatusModal isOpen={isCancelModalOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={cancelMessage} ></StatusModal>
-      <StatusModal isOpen={isSaveModalOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={saveMessage} ></StatusModal>
+      {/* <StatusModal isOpen={isCancelModalOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={cancelMessage} ></StatusModal>
+      <StatusModal isOpen={isSaveModalOpen} onConfirm={handleConfirm} onCancel={handleCancel} message={saveMessage} ></StatusModal> */}
     
     </Fragment>
   );
